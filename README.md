@@ -148,6 +148,156 @@ console.log(solution(178));
 
 </div>
 </details>
+ 
+ <details>
+<summary>1_4 1부터 N까지 합 출력하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>  자연수 N이 입력되면 1부터 N까지의 합을 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(n) {
+    let answer = 0;
+    for (let i = 1; i <= n; i++) {
+        answer = answer + i;
+    }
 
+    return answer;
+}
 
+console.log(solution(10));
+ ```
+ 
+ <br>
+ 
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ function solution(arr){
+  let answer = 0;
+  let answer2 = 0;
+  answer = arr.reduce((accumulator, curr) => accumulator + curr)
+  arr.forEach(function(el){answer2+=el});
+  
+  console.log(answer2)
+  return answer, 
+}
+arr = [1,2,3,4,5,6]
+console.log(solution(arr));
+```
+
+ <pre>
+ 💬 배열이아닌 파라미터가 숫자하나인 입력값을 받을때 제일 단순한 방법은 
+    for문으로 누적합을 구하는 것 같고 배열일때 누적합을 구하는 것도 for문
+    사용을 할 수 있지만 reduce() 메소드나 forEach() 메소드로 구할 수 있다.
+ </pre>
+
+</div>
+</details>
+
+<details>
+<summary>1_5 최솟값 구하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>  7개의 수가 주어지면 그 숫자 중 가장 작은 수를 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr) {
+    let answer,
+    let min = Number.MAX_SAFE_INTEGER;
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] < min) 
+            min = arr[i];
+        }
+    answer = min;
+    return answer;
+
+}
+let arr = [5,7,1,3,2,9,11];
+console.log(solution(arr));
+ ```
+ 
+ <br>
+ 
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ function solution(arr){
+  answer = Math.min(...arr);
+  return answer;
+}
+let arr=[5,7,1,3,2,9,11]
+console.log(solution(arr));
+```
+
+ <pre>
+ 💬 선생님의 첫번 째 솔루션은 최솟값을 넣을 변수에 MAX_SAFE_INTEGER로 초기화
+    하고, for문으로 돌리면서 그 변수와 if문으로 비교하며, 더 작으면 그 변수값에 
+    최솟값을 넣는 방식이고, 대체 솔루션은 Math.min()메소드를 사용하는 건데, 
+    해당 메소드는 배열을 넣으면 NaN이 나오게된다. 그래서 전개 연산자를 사용해주면
+    인식하여, 정상작동하는 것을 볼 수 있다. 
+ </pre>
+
+</div>
+</details>
+ 
+ <details>
+<summary>1_6 홀 수</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>  7개의 자연수가 주어질 때, 이들 중 홀수인 자연수들을 모두 골라 그 합을 구하고, 고른 홀수들 중 최소값을 찾는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(nat_num){
+  let answer = [], sum =0, min = Number.MAX_SAFE_INTEGER;
+  for (let i =0;i<nat_num.length;i++)
+  {
+      if((nat_num[i]%2)!==0){
+          sum += nat_num[i];
+          if (nat_num[i] < min) min = nat_num[i];
+      }
+  }   
+  answer.push(sum);
+  answer.push(min);
+  return answer;
+}
+nat_num = [12,77,38,41,53,92,85]
+console.log(solution(nat_num));
+ ```
+ 
+ <br>
+ 
+ 
+ <pre>
+ 💬 7개의 자연수중에 홀수만 골라 출력하는거니, 일단 변수 answer를 리스트로
+    초기화해주고 if문으로 홀수를 골라준다음에 또 다른 if문으로 최솟값이 나올때마다
+    최소 변수에 그 값을 넣어주고, push() 메소드로 answer에 넣어준다. 
+ </pre>
+
+</div>
+</details>
 
