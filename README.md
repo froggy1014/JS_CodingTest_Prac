@@ -652,6 +652,192 @@ console.log(solution("StuDY"));
 </div>
 </details>
 
+<details>
+<summary>1_14 가장 긴 문자열</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N개의 문자열이 입력되면 그 중 가장 긴 문자열을 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s) {
+    let answer = "",
+        max = Number.MIN_SAFE_INTEGER;
+    for (let x of s) {
+        if (x.length > max) {
+            max = x.length;
+            answer = x;
+        }
+    }
+    return answer;
+}
+let str=["teacher", "time", "student", "beautiful", "good"];
+console.log(solution(str));
+ ```
+ 
+ <br>
+
+ <br>
+
+ <pre>
+ 💬  최대값 변수에 Number.MIN_SAFE_INTEGER 상수를 넣어주고, for of로 인덱스마다 문자열가져와서 
+     length()로 길이를 비교를 해서 제일 큰걸 answer 변수에 넣어서 출력
+ </pre>
+
+</div>
+</details>
+
+<details>
+<summary>1_15 가운데 문자 출력</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>소문자로 된 단어(문자열)가 입력되면 그 단어의 가운데 문자를 출력하는 프로그램을 작성하세 요. 단 단어의 길이가 짝수일 경우 가운데 2개의 문자를 출력합니다.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s) {
+    let answer;
+    let mid = Math.floor(s.length / 2)
+    if (s.length % 2 === 1) 
+        answer = s.substring(mid, mid + 1);
+    else 
+        answer = s.substring(mid - 1, mid + 1);
+    return answer;
+}
+console.log(solution("study"));
+ ```
+ 
+ <br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s){  
+  let answer;
+  let mid=Math.floor(s.length/2)
+  if(s.length%2===1) answer=s.substr(mid, 1);
+  else answer=s.substr(mid-1, 2);
+  return answer;
+}
+console.log(solution("abcef"));
+```
+
+ <br>
+
+ <pre>
+ 💬  첫 번째 솔루션은 mid라는 변수를 하나 만들고, 문자열 가운데 인덱스를 잡을 수 있게 값을 넣어줍니다. 
+     그래서 홀수, 짝수에 따라, substring() 메소드를 이용해서 해당 인덱스에 해당되는 문자를 answer에 넣어준다.
+     다른 방법은 substr() 메소드인데, 차이점이라고 한다면 두번째 파라미터에 들어간 값의 인덱스까지 출력한다. 
+     substring()은 두번째 파라미터값의 전 인덱스까지 반환한다. 
+ </pre>
+
+ 참조 - [substring()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substring), [substr()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/substr)
+
+</div>
+</details>
+ 
+ <details>
+<summary>1_16 중복문자제거</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>소문자로 된 한개의 문자열이 입력되면 중복된 문자를 제거하고 출력하는 프로그램을 작성하 세요.<br>
+      제거된 문자열의 각 문자는 원래 문자열의 순서를 유지합니다.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){  
+let answer = "";
+//console.log(s.indexOf("K"));
+for (let i = 0; i < s.length; i++) {
+    //console.log(s[i], i, s.indexOf(s[i]));
+    if (s.indexOf(s[i]) === i) 
+        answer += s[i];
+    }
+return answer;
+}
+console.log(solution("ksekkset"));
+ ```
+ 
+ <br>
+
+ <br>
+
+ <pre>
+ 💬  솔루션은 indexOf()라는 메소드로,  문자열 s[i]번째 인덱스에 해당되는 문자의 인덱스 번호랑 for문으로 돌리는 i랑 비교해서
+     그 값이 같은 문자만 answer에 넣는다. 왜냐하면 indexOf에서 같은 문자라도 문자열에서 첫번째로 나오는 인덱스 번호만 나오기때문에
+     중복값이라면 두 값이 같을 수 없다.    
+ </pre>
+
+ 참조 - [indexOf()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+</div>
+</details>
+
+ <details>
+<summary>1_17 중복단어제거</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N개의 문자열이 입력되면 중복된 문자열은 제거하고 출력하는 프로그램을 작성하세요. <br>
+      출력하는 문자열은 원래의 입력순서를 유지합니다.
+
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){  
+  let answer;
+  answer=s.filter((v, i)=>{
+      if(s.indexOf(v)===i) return v;
+  });
+  return answer;
+}
+let str=["good", "time", "good", "time", "student"];
+console.log(solution(str));
+ ```
+ 
+ <br>
+
+ <br>
+
+ <pre>
+ 💬  filter() 메소드를 이용해서 콜백함수가 통과하는 모든 요소를 모아 새로운 배열로 반환하는데, 
+     v 즉 indexOf(v)로 해당 단어의 인덱스를 뽑아서 i와 비교해서 같다면 넣고 틀리다면 그냥 넘어가는 
+     식으로 중복 문자를 제거한다. 
+ </pre>
+
+ 참조 - [indexOf()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)
+</div>
+</details>
+
+
+
 
 
  
