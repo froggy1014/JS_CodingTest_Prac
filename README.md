@@ -424,7 +424,7 @@ console.log(solution(str));
   ### ⁉️ Alternative Solution
  
   ```javascript
-ffunction solution(s) {
+function solution(s) {
     let answer = s;
     answer = answer.replace(/A/g, "#");
     return answer;
@@ -433,6 +433,8 @@ ffunction solution(s) {
 console.log(solution(str));
 ```
 
+ <br>
+ 
  <pre>
  💬  일단 솔루션은 간단하다, for of 로 문자열을 하나씩 가져오고 'A'와 대조해 같으면 #으로 넣어주는거다.
      대안 솔루션은 replace() 라는 메소드를 사용하게 되는데, 여기서는 global을 붙여줌으로써 모든 문자열에 
@@ -446,4 +448,210 @@ console.log(solution(str));
 </div>
 </details>
  
+<details>
+<summary>1_10 문자 찾기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>한 개의 문자열을 입력받고, 특정 문자를 입력받아 해당 특정문자가 입력받은 문자열에 몇 개 존재하는지 알아내는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s, t){
+  let answer=0;
+  for(let x of s){
+      if(x===t) answer++;
+  }
+  return answer;
+}
+
+let str="COMPUTERPROGRAMMING";
+console.log(solution(str, 'R'));
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s, t) {
+    let answer = s.split(t).length;
+    return answer - 1;
+}
+let str="COMPUTERPROGRAMMING";
+console.log(solution(str, 'R'));
+```
+
+<br> 
+ 
+ <pre>
+ 💬  솔루션은 for of로 문자열의 문자를 하나씩 가져오고 비교하여 카운트를 하는 것이고 
+     다른 방법으로는 문자열을 내가 찾아야하는 문자로 split()하여 바로 length()로
+     파라미터를 카운트해주고 마지막에 -1를 한다.
+ </pre>
+
+</div>
+</details>
+ 
+<details>
+<summary>1_11 대문자 찾기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>한 개의 문자열을 입력받아 해당 문자열에 알파벳 대문자가 몇 개 있는지 알아내는 프로그램 을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s) {
+    let answer = 0;
+    for (let x of s) {
+        if (x === x.toUpperCase()) 
+            answer++;
+        }    
+    return answer;
+}
+let str="KoreaTimeGood";
+console.log(solution(str));
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s) {
+    let answer = 0;
+    for (let x of s) 
+    {
+      let num=x.charCodeAt(); 
+      if(num>=65 && num<=90) answer++;
+    }
+    
+    return answer;
+}
+let str="KoreaTimeGood";
+console.log(solution(str));
+```
+
+ <br>
+
+ <pre>
+ 💬  첫번쨰 솔루션은 toUpperCase()메소드로 문자열을 대문자로 전부 바꿔주고, 기존 문자열과
+     비교하여 카운트를하는 방법과, 다른 방법으로는 charCodeAt() 메소드로 for of로 돌려
+     해당 문자열 인덱스에 해당되는 문자를 유니코드로 바꿔서 대문자 유니코드의 범주안에 들어가있으면
+     카운트하는건데, 기억해둘건 대문자(65~90) / 소문자(97~122)     
+ </pre>
+
+</div>
+</details>
+ 
+<details>
+<summary>1_12 대문자로 통일</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>한 개의 문자열을 입력받아 해당 문자열에 알파벳 대문자가 몇 개 있는지 알아내는 프로그램 을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){         
+let answer = "";
+for (let x of s) {
+    let num = x.charCodeAt();
+    if (num >= 97 && num <= 122) 
+        answer += String.fromCharCode(num - 32);
+    else 
+        answer += x;       
+    }
+return answer;
+}
+let str="ItisTimeToStudy";
+console.log(solution(str));
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s){         
+  let answer="";
+  for(let x of s){
+      if(x===x.toLowerCase()) answer+=x.toUpperCase();
+      else answer+=x;
+  }
+  return answer;
+}
+let str="ItisTimeToStudy";
+console.log(solution(str));
+```
+
+ <br>
+
+ <pre>
+ 💬  첫번째 솔루션은 for of 돌리면서, 문자열 인덱스마다 문자를 유니코드를 바꾸어서 소문자 범주안에 들어있다면,
+     대문자 유니코드로 바꿔준다, 알파벳마다 32씩 차이나서 fromCharCode(num-32) 이렇게 넣어준다. 
+     다른 방법으로는 if에 toLowerCase()메소드를 사용해서 비교하고 소문자면 toUpperCase()로 바꿔준다. 
+ </pre>
+
+</div>
+</details>
+
+ <details>
+<summary>1_13 대소문자 변환</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>대문자와 소문자가 같이 존재하는 문자열을 입력받아 대문자는 소문자로 소문자는 대문자로 변환하여 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){  
+  let answer="";
+  for(let x of s){
+      if(x===x.toUpperCase()) answer+=x.toLowerCase();
+      else answer+=x.toUpperCase();
+  }
+  return answer;
+}
+console.log(solution("StuDY"));
+ ```
+ 
+ <br>
+
+ <br>
+
+ <pre>
+ 💬  간단하다, if문 toUpperCase()로 바꿔주고 비교해서 맞다면 소문자로 아니면 대문자로 바꿔준다. 
+ </pre>
+
+</div>
+</details>
+
+
+
  
