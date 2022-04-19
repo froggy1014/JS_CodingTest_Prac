@@ -301,3 +301,149 @@ console.log(solution(nat_num));
 </div>
 </details>
 
+ <details>
+<summary>1_7 10부제</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>  서울시는 6월 1일부터 교통 혼잡을 막기 위해서 자동차 10부제를 시행한다. 자동차 10부제는 자동차 번호의 일의 자리 숫자와 
+ <br>   날짜의 일의 자리 숫자가 일치하면 해당 자동차의 운행을 금 지하는 것이다. 예를 들어, 자동차 번호의 일의 자리 숫자가 7이면 7일,
+ <br>   17일, 27일에 운행하 지 못한다. 또한, 자동차 번호의 일의 자리 숫자가 0이면 10일, 20일, 30일에 운행하지 못한 다.
+ <br>
+   여러분들은 일일 경찰관이 되어 10부제를 위반하는 자동차의 대수를 세는 봉사활동을 하려고 한다. 날짜의 일의 자리 숫자가 주어지고 
+<br>   7대의 자동차 번호의 끝 두 자리 수가 주어졌을 때 위반하는 자동차의 대수를 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(day, arr) {
+    let answer = 0;
+    for (let x of arr) {
+        if (x % 10 == day) 
+            answer++;
+        }
+    
+    return answer;
+}
+arr=[25, 23, 11, 47, 53, 17, 33];
+console.log(solution(3, arr));
+ ```
+ 
+ <br>
+ 
+ <pre>
+ 💬  십의 자리의 숫자들을 일단 10으로 나머지 연산을 하면 1의 자리만 남겠고 그것을 날짜의 일의 자리와 
+     if문으로 비교해서 걸리면 하나씩 카운트하게끔 하면 된다. 
+ </pre>
+
+</div>
+</details>
+
+ <details>
+<summary>1_8 일곱 난쟁이</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 왕비를 피해 일곱 난쟁이들과 함께 평화롭게 생활하고 있던 백설공주에게 위기가 찾아왔다. 일과를 마치고 돌아온 난쟁이가 
+ <br> 일곱 명이 아닌 아홉 명이었던 것이다. 아홉 명의 난쟁이는 모두 자신이 "백설 공주와 일곱 난쟁이"의 주인공이라고 주장했다. 
+ <br> 뛰어난 수학적 직관력을 가지고 있던 백설공주는, 다행스럽게도 일곱 난쟁이의 키의 합이 100이 됨을 기억해 냈다.
+<br> 아홉 난쟁이의 키가 주어졌을 때, 백설공주를 도와 일곱 난쟁이를 찾는 프로그램을 작성하시오.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer=arr;
+  let sum=answer.reduce((a, b)=>a+b, 0);
+  for(let i=0; i<8; i++){
+      for(let j=i+1; j<9; j++){
+          if((sum-(answer[i]+answer[j]))==100){
+              answer.splice(j, 1);
+              answer.splice(i, 1);
+          }
+      }
+  }
+  return answer;
+}
+let arr=[20, 7, 23, 19, 10, 15, 25, 8, 13];
+console.log(solution(arr));
+ ```
+ 
+ <br>
+
+ <pre>
+ 💬  일단 모든 파라미터를 더해서 누적합을 구한다. 그리고 이중 for문으로 인덱스 i, j 번째 파라미터 둘을 더하고,
+     누적합에서 빼서 100이 나오면 해당 인덱스에 파라미터를 splice()메소드로 제외시키는데 여기서, 뒤에 있는 인덱스
+     j를 먼저 제외시켜주는데 이유는 인덱스를 삭제하면, 뒤에 있던 인덱스가 앞으로 당겨지기 때문이다. 
+ </pre>
+
+</div>
+</details>
+ 
+ <details>
+<summary>1_9 A를 #으로</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>대문자로 이루어진 영어단어가 입력되면 단어에 포함된 ‘A'를 모두 ’#‘으로 바꾸어 출력하는 프로그램을 작성하세요.
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s) {
+    let answer = "";
+    for (let x of s) {
+        if (x == 'A') 
+            answer += '#';
+        else 
+            answer += x;
+        }
+    return answer;
+}
+let str="BANANA";
+console.log(solution(str));
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ffunction solution(s) {
+    let answer = s;
+    answer = answer.replace(/A/g, "#");
+    return answer;
+}
+=let str="BANANA";
+console.log(solution(str));
+```
+
+ <pre>
+ 💬  일단 솔루션은 간단하다, for of 로 문자열을 하나씩 가져오고 'A'와 대조해 같으면 #으로 넣어주는거다.
+     대안 솔루션은 replace() 라는 메소드를 사용하게 되는데, 여기서는 global을 붙여줌으로써 모든 문자열에 
+     영향을 끼치게 한다. 
+ </pre>
+ 
+  참조 링크: [replace()-MDN][ref-mdn]
+ 
+[ref-mdn]: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String/replace "ref-replace()"
+ 
+</div>
+</details>
+ 
+ 
