@@ -836,8 +836,52 @@ console.log(solution(str));
 </div>
 </details>
 
+<br>
 
+## 챕터2 - 2차원 배열 탐색
+ 
+<br> 
+ 
+ <details>
+<summary>2_1 큰 수 출력하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N(1<=N<=100)개의 정수를 입력받아, 자신의 바로 앞 수보다 큰 수만 출력하는 프로그램을 작 성하세요.<br>
+      (첫 번째 수는 무조건 출력한다)
+ </pre>
+ 
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){         
+  let answer=[];
+  answer.push(arr[0]);
+  for(let i=1; i<arr.length; i++){
+      if(arr[i]>arr[i-1]) answer.push(arr[i]);
+  }
+  return answer;
+} 
+let arr=[7, 3, 9, 5, 6, 12]
+console.log(solution(arr))
+ ```
+ 
+ <br>
 
+ <br>
+
+ <pre>
+ 💬  일단 answer를 데이터 타입을 리스트로 초기화해주고, 배열의 0번 인덱스를 push해서 넣습니다.
+     그리고 for문을 돌려 현재 i 번째가 앞 인덱스보다 크다면 하나씩 push할 수 있도록 하였습니다. 
+ </pre>
+
+ 참조 - [push()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+</div>
+</details>
 
 
  
