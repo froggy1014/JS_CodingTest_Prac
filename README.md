@@ -925,5 +925,64 @@ console.log(solution(arr));
 </div>
 </details>
 
+<details>
+<summary>2_3 가위 바위 보</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>A, B 두 사람이 가위바위보 게임을 합니다. 총 N번의 게임을 하여 A가 이기면 A를 출력하고, B가 이기면 B를 출력합니다.<br>
+ 비길 경우에는 D를 출력합니다. 가위, 바위, 보의 정보는 1:가위, 2:바위, 3:보로 정하겠습니다.<br>
+ 두 사람의 각 회의 가위, 바위, 보 정보가 주어지면 각 회를 누가 이겼는지 출력하는 프로그램 을 작성하세요.
+ </pre>
+
+ <bt>
+
+ |회수|A|B|승자|
+|:---:|:---:|:---:|:---:|
+|1|2|1|A|
+|2|3|1|B|
+|3|3|2|A|
+|4|1|2|B|
+|5|3|3|D|
 
  
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(a, b) {
+    let answer = "";
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] === b[i]) 
+            answer += "D ";
+        else if (a[i] === 1 && b[i] === 3) 
+            answer += "A ";
+        else if (a[i] === 2 && b[i] === 1) 
+            answer += "A ";
+        else if (a[i] === 3 && b[i] === 2) 
+            answer += "A ";
+        else 
+            answer += "B ";
+        }
+    return answer;
+}
+let a=[2, 3, 3, 1, 3];
+let b=[1, 1, 2, 2, 3];
+console.log(solution(a, b));
+ ```
+ 
+ <br>
+
+ <br>
+
+ <pre>
+ 💬  가위바위보인 건데, if문으로 A가 이기는 경우를 다 else if로 적어놓고, 처음 if에는 무승부인 경우
+     else는 다 B를 반환하게한다. 
+ </pre>
+
+
+</div>
+</details>
