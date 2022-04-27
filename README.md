@@ -986,6 +986,279 @@ console.log(solution(a, b));
 
 </div>
 </details>
+ 
+ <details>
+<summary>2_4 점수계산</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>시험문제의 채점 결과가 주어졌을 때, 총 점수를 계산하는 프로그램을 작성하시오.
+ </pre>
+
+<br>
+
+|채점|점수|
+|---|---|
+|1|1|
+|0|0|
+|1|1|
+|1|2|
+|1|3|
+|0|0|
+|0|0|
+|1|1|
+|1|2|
+|0|0|
+
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+  let answer = 0;
+  let score = 1;
+  for (let i=0;i<s.length;i++){
+    if (s[i] == 1)
+    {
+      answer+=score;
+      score++;
+    }else{
+      score = 1;
+    }
+  }
+  return answer;
+}
+let str = [1,0,1,1,1,0,0,1,1,0];
+console.log(solution(str));
+ ```
+
+
+ <br>
+
+ <pre>
+ 💬  for문으로 인덱스가져오고, if로 비교해서 채점이 1이면 score변수로 더하고 score++,
+    그 다음 인덱스에서도 채점이 1이면 더해진 score로 다시 더하고 아니라면 score, 1로 초기화한다. 
+ </pre>
+
+
+</div>
+</details>
+ 
+<details>
+<summary>2_5 등수구하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N(1<=N<=100)명의 학생의 국어점수가 입력되면 각 학생의 등수를 입력된 순서대로 출력하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+    let answer = [];
+    let rank = s.length;
+    for(let i = 0; i<s.length; i++){
+      for(let j = 0;j<s.length; j++ ){
+        if ( s[i] > s[j]){
+          rank--;
+        }
+      }
+      answer.push(rank);
+      rank = 5;
+    }
+  return answer;
+}
+let str = [65,90,38,99,53];
+console.log(solution(str));
+ ```
+
+
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(arr) {
+    let n = arr.length;
+    let answer = Array.from({length: n}, () => 1);
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (arr[j] > arr[i]) 
+                answer[i]++;
+            }
+        }
+    return answer;
+}
+let arr=[87, 89, 92, 100, 76];
+console.log(solution(arr));
+```
+
+<br>
+
+ <pre>
+ 💬  내가 생각한 솔루션은 rank라는 변수로 일단 length로 최하 숫자로 맞춰놓고 
+    for문을 두개 돌려서, 부모 for문보다  자식 for문이 더 높으면 rank에서 1씩빼게
+    하여서 구현했다. 
+
+    그리고 모범 솔루션에서는 Array.from 메소드를 사용하였는데, 이걸 사용해지니 더 깔끔하게
+    코드가 개선되었는데, 이중 for문을 통해 풀어내는건 같았으나 이 메소드는 
+    Array.from({length: n}, () => 1) 이런식으로 하면 새로운 배열을 만들어내는데, 
+    n만큼의 length를 다 요소 1로 재 생성한다.
+    </pre>
+
+
+</div>
+</details>
+ <details>
+<summary>2_6 격자판 최대합</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N*N의 격자판이 주어지면 각 행의 합, 각 열의 합, 두 대각선의 합 중 가 장 큰 합을 출력합 니다.
+ </pre>
+
+ |10|13|10|12|15|
+|--|--|--|--|--|
+|12|39|30|23|15|
+|11|25|50|53|15|
+|19|27|29|37|27|
+|19|13|30|13|19|
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer = Number.MIN_SAFE_INTEGER;
+  let n = arr.length;
+  let sum1 = 0;
+  let sum2 = 0;
+
+  for(let i=0;i<n;i++){
+    sum1=sum2=0;
+    for(let j=0;j<n;j++){
+      sum1 += arr[i][j] 
+      sum2 += arr[j][i]
+    }
+    answer = Math.max(answer,sum1,sum2);
+  }
+
+  sum1=sum2=0;
+  for(let i=0;i<n;i++)
+    {
+      sum1 += arr[i][i] 
+      sum2 += arr[i][n-1-i]
+    }
+    answer = Math.max(answer,sum1,sum2);
+  
+  return answer;
+}
+let arr = [[10,13,10,12,15],
+           [12,39,30,23,11],
+           [11,25,50,53,15],
+           [19,27,29,37,27],
+           [19,13,30,13,19]];
+console.log(solution(arr));
+ ```
+ 
+
+<br>
+
+ <pre>
+ 💬  이거는 내가 잘 몰라서 모범답안을 보는 수 밖에 없었다. 
+    일단 이중 for문으로 한번 Math.max()로 통해 제일 높은 값을 뽑아 answer에 넣고,
+    그리고 문제는 대각선이였는데, [i][i], [i][n-1-i] 이렇게 넣으면 대각선 인덱스가
+    잡혔는데, 다음에 한번더 풀어보면서 익숙해져야겠다. 
+    </pre>
+
+
+</div>
+</details>
+ <details>
+<summary>2_7 봉우리</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>지도 정보가 N*N 격자판에 주어집니다. 각 격자에는 그 지역의 높이가 쓰여있습니다.<br> 각 격자 판의 숫자 중 자신의 상하좌우 숫자보다 큰 숫자는 봉우리 지역입니다.<br>봉우리 지역이 몇 개 있는 지 알아내는 프로그램을 작성하세요.<br>
+격자의 가장자리는 0으로 초기화 되었다고 가정한다.<br>
+만약 N=5 이고, 격자판의 숫자가 다음과 같다면 봉우리의 개수는 10개입니다.
+ </pre>
+
+ |0|0|0|0|0|0|0|
+|--|--|--|--|--|--|--|
+|0|5|3|7|2|3|0|
+|0|3|7|1|6|1|0|
+|0|7|2|5|3|4|0|
+|0|4|3|6|4|1|0|
+|0|8|7|3|5|2|0|
+ |0|0|0|0|0|0|0|
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr) {
+    let answer = 0;
+    let n = arr.length;
+    let dx = [-1, 0, 1, 0];
+    let dy = [0, 1, 0, -1];
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            let flag = 1;
+            for (let k = 0; k < 4; k++) {
+                let nx = i + dx[k];
+                let ny = j + dy[k];
+                if (nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx][ny] >= arr[i][j]) {
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag) 
+                answer++;
+            }
+        }
+    return answer;
+}
+ let arr=[[5, 3, 7, 2, 3], 
+[3, 7, 1, 6, 1],
+[7, 2, 5, 3, 4],
+[4, 3, 6, 4, 1],
+[8, 7, 3, 5, 2]];
+console.log(solution(arr));
+ ```
+ 
+
+<br>
+
+ <pre>
+ 💬  이것도 너무 어려워서 내가 모범답안을 볼 수 밖에 없었다 ㅠㅠ
+    이중문을 일단 만들어서 좌표를 만들고, flag 변수를 하나 만들어서, 4 방향이 다 
+    [i][j]좌표보다 크면 flag는 0으로 바뀌고 break; 로 넘어가고 반대면 flag는 그대로
+    살아있을것이고 이게 그대로 count++가 되어서 세게되는것인데, if에 좌표 outofrange
+    구간은 거르기 위해 nx,ny가 0보다 같거나 크게, 그리고 arr.length보다는 무조건 작게
+    하게끔 필터링을 만들어서 방지한다. 
+    </pre>
+
+
+</div>
+</details>
+
+<br>
+
 
  ## 챕터3 - 문자열 탐색
  
@@ -1337,4 +1610,5 @@ console.log(solution(str))
 
 </div>
 </details>
+
 
