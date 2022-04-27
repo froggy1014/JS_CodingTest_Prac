@@ -1077,6 +1077,69 @@ console.log(solution(str))
 </div>
 </details>
 
+ <details>
+<summary>3_2 유효한 팰린드롬(Palindrome)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>앞에서 읽을 때나 뒤에서 읽을 때나 같은 문자열을 팰린드롬이라고 합니다.문자열이 입력되면 해당 문자열이 팰린드롬이면 "YES", <br>
+ 아니면 “NO"를 출력하는 프로그램을 작성하세요. 단 회문을 검사할 때 알파벳만 가지고 회문을 검사하며, 대소문자를 구분하지 않습니다. 알파벳 이외의 문자들의 무시합니다.
+ </pre>
+
+
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function palindrome(str)
+{
+  var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+  const t = str.toLowerCase().replace(regExp, "")
+  for (let i = 0; i < Math.floor(t.length/2); i++)
+    if (t[i] !== t[t.length-i-1]) return "NO"
+  return "YES"
+}
+const str = "found7, time: study; Yduts; emit, 7Dnuof"
+console.log(palindrome(str))
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function palindrome(str)
+{
+  let answer = "yes"
+  const t = str.toLowerCase().replace(/[^a-z]/g, '')
+  if(t !== t.split('').reverse().join('')) return "No";
+
+  return answer;
+}
+const str = "found7, time: study; Yduts; emit, 7Dnuof"
+console.log(palindrome(str))
+```
+
+ <br>
+
+ <pre>
+ 💬  내가 직접풀어본 솔루션으로는 특수문자 체크 정규식을 가져와서
+     특수문자를 제거 및 소문자로 통일하고, for문으로 각자 
+     대응하는 index를 비교하면서 정답을 반환하는 식으로 하였고,
+
+    강의에서 나온 모범답안은 일단 나처럼 특수문자 체크 정규식을 인터넷
+    에서 가져오지 않고 replace(/[^a-z]/g,'') 이렇게하면 a-z를
+    제외한 모든 요소가 제외시킨다는걸 알게되었다. 그리고 이걸 여느 회문
+    문자열 문제와 같이 매소드를 통해 반대로 돌리고, 통째로 문자열을
+    두개 비교해서 정답을 반환하셨다.   
+ </pre>
+
+
+</div>
+</details>
 
  
  
