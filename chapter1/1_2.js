@@ -1,16 +1,16 @@
 function solution(a,b,c){
-    let answer = "answer", max;
+    let answer = "YES", max;
     let sum = a+b+c;
     if(a>b) max =a;
     else max = b;
     if (c>max) max=c;
 
-    if ((sum-max) <= max)console.log("No")
+    if ((sum-max) <= max)answer=("No")
     
 
     return answer;
 }
 
 
-console.log(solution(10, 9, 15));
+console.log(solution(10, 9, 20));
 

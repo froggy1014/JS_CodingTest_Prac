@@ -1,13 +1,12 @@
-function solution(a){
-    let answer = Number.MAX_SAFE_INTEGER;
-    for ( let x of a)
-    {
-        if ( x <= answer)
-        answer = x;
-    } 
+function solution(a, b, c) {
+    let answer;
+    if (a < b) 
+        answer = a;
+    else 
+        answer = b;
+    if (c < answer) 
+        answer = c;
     return answer;
 }
 
-let prob = [6,5,11,2,9,1,3];
-console.log(solution(prob));
-
+console.log(solution(2, 5, 1));
