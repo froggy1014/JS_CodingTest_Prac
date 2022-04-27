@@ -1141,6 +1141,87 @@ console.log(palindrome(str))
 </div>
 </details>
 
+<details>
+<summary>3_3 숫자만 추출</summary>
+<div markdown="1">       
+<br>
  
+ ### ❓ Question
+ 
+ <pre>앞문자와 숫자가 섞여있는 문자열이 주어지면 그 중 숫자만 추출하여 그 순서대로 자연수를 만 듭니다.<br>만약 “tge0a1h205er”에서 숫자만 추출하면 0, 1, 2, 0, 5이고 이것을 자연수를 만들면 1205 이 됩니다.<br>추출하여 만들어지는 자연수는 100,000,000을 넘지 않습니다.
+ </pre>
+
+
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function palindrome(str)
+{
+  let t = str.toLowerCase().replace(/[a-z]/g,'').split('')
+    while(true){
+      if (t[0] <= 0)
+        t.shift();
+      else return t.join('');
+    } 
+}
+const str = "00030501020000g0en2T0145s8eSoft"
+console.log(palindrome(str))
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+
+//isNaN(), parseInt() 메소드를 통한 추출
+
+function solution(str)
+{
+  let answer ="";
+  for (let x of str){
+    if (!isNaN(x)) answer+=x;
+  }
+  return parseInt(answer);
+}
+const str = "g0en2T0s8eSoft"
+console.log(solution(str))
+
+// parseInt사용 못할 시, 수학적 접근법으로 추출
+
+function solution(str)
+{
+  let answer =0;
+  for (let x of str){
+    if (!isNaN(x)) answer = answer*10+Number(x);
+  }
+  return answer;
+}
+const str = "g0en2T0s8eSoft"
+console.log(solution(str))
+```
+
+ <br>
+
+ <pre>
+ 💬  내가 직접한 솔루션은 일단 숫자만 남게끔 정규식으로 다른 문자들 삭제,
+    그리고 split('')로 배열로 만든다음 첫번째 인덱스에 0보다 작은 값이
+    나오면 제거할때 까지 무한루프를 돌리고, else 시 반환하면서, join('')
+
+     일단 강의에서는 for of을 통해 문자열의 요소를 하나씩 가져오고, 
+    if문안에 isNaN()으로 문자열을 필터링하여, int 변수에 숫자들을
+    그대로 더해주고, 마지막 반환할때 parseInt()를 사용해 자연수로 만듬
+
+     두번째 방법으로는 만약 코딩테스트할때 parseInt()를 사용하지 못하게
+    했을 상황을 가정하여, isNaN은 똑같이 사용하나, int 변수에 넣을 때,
+    answer = answer*10+Number(x) 이런식으로 맨앞자리에 0이 들어가면
+    자연스레 0이되는 수학적 접근으로 해결 할 수 있었다.
+ </pre>
+
+
+</div>
+</details>
  
  
