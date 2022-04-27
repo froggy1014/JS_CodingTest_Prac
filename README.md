@@ -1224,4 +1224,63 @@ console.log(solution(str))
 </div>
 </details>
  
+ <details>
+<summary>3_4 가장 짧은 문자거리</summary>
+<div markdown="1">       
+<br>
  
+ ### ❓ Question
+ 
+ <pre>한 개의 문자열 s와 문자 t가 주어지면 문자열 s의 각 문자가 문자 t와 떨어진 최소거리를 출 력하는 프로그램을 작성하세요.
+ </pre>
+
+
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(str, cha)
+{
+  let answer = [];
+  let P = 1000;
+  for (let x of str){
+    if (x === cha){
+      P=0;
+      answer.push(P)
+    }else{
+      P++;
+      answer.push(P)
+    }
+  }
+  P=1000;
+  for (let i = str.length-1;i>=0;i--){
+      if (str[i]===cha){
+        P=0;  
+      }
+      else{
+        P++;
+        answer[i]=Math.min(answer[i], P);
+      }
+  }
+  return answer;
+}
+const str = "teachermode"
+const cha = 'e'
+console.log(solution(str,cha))
+ ```
+
+
+ <br>
+
+ <pre>
+ 💬  한참 고민하다가 결국엔 솔루션을 봐버렸다. 이해하기 위해서 몇번이나 멈춰서 생각한거 같은데, for문을 두번 쓸줄이야.. 
+     일단 처음에는 indexOf 라는 메소드를 사용해서 풀으려고 했으나 fromIndex를 설정하면  오른쪽으로만 계산하는 경향이 있어서 과감히 포기했다. 
+     강의에서 본 솔루션은 일단 한 변수를 일단 큰값으로 정해놓고, 찾고자하는 문자를 for문을 돌려 만나게 되면 초기화하고, 멀어질수록 그 카운터에 +한다. 
+     하지만 결국 이렇게하면 오른쪽으로만 보게되는 꼴인데, 또 다른 for문으로 마지막 인덱스부터 반대로 내려오게끔 해놓은 다음에 같은 자리 인덱스를 
+     마지막에 Math.min(a,b)를 통해서 더 카운터가 작은 값을 넣으면서 정답을 변환하였다. 나중에 다시 풀어봐야겠다.. 
+ </pre>
+
+
+</div>
+</details>
