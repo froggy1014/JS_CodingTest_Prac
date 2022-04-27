@@ -986,3 +986,98 @@ console.log(solution(a, b));
 
 </div>
 </details>
+
+ ## 챕터3 - 문자열 탐색
+ 
+  <br>
+ 
+ <details>
+<summary>3_1 회문 문자열(Palindrome)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>앞에서 읽을 때나 뒤에서 읽을 때나 같은 문자열을 회문 문자열이라고 합니다. 문자열이 입력되면 해당 문자열이 회문 문자열이면 "YES", 회문 문자열이 아니면 <br>
+ “NO"를 출력 하는 프로그램을 작성하세요.
+ </pre>
+
+
+ <br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function palindrome(str)
+{
+  const sentence = str.toLowerCase();
+  let rev_sen = '';
+  for (let i=sentence.length-1; i >= 0; i--){
+     rev_sen += sentence[i];
+  }
+  if (sentence == rev_sen)
+    return "YES";
+  else return "NO";
+}
+const str = "goog"
+console.log(palindrome(str))
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+// 각자 반대편에 해당되는 인덱스와 비교 
+
+ function solution(s){
+  let answer = "Yes";
+  s=s.toLowerCase();
+  let len=s.length;
+  for (let i =0; i<Math.floor(len/2);i++){
+    if (s[i]!==s[(len-1)-i]) return "No"
+  }
+  return  answer;
+}
+let str = "good";
+console.log(solution(str))
+
+// split().reverse().join() 메소드를 이용한 방법
+
+function solution(s){
+  let answer = "Yes";
+  s=s.toLowerCase();
+  if( s !== s.split('').reverse().join(''))
+    return "No";
+
+  return answer;
+}
+let str = "goog";
+console.log(solution(str))
+```
+
+ <br>
+
+ <pre>
+ 💬  첫번째로 내가 직접 생각한 솔루션은 일단 문자열을 전부 소문자로
+     바꿔주는 건 공통적이고, 문자열 인덱스를 반대로 for문을 돌리며
+     다른 문자열 변수에 더해준다음, 최종 기존 문자열과 반대로 넣은 
+     문자열과 비교하여 정답 반환했다.
+    
+    내가 보는 강의에서 총 2가지의 다른 솔루션을 알려주셨는데, 하나는
+    문자열을 반으로 나누어, 서로 마주보는 인덱스끼리 for문을 돌려 하
+    나라도 틀린게 나오면 바로 정답을 반환하는 거였고, 
+
+    다른 하나는 split('')으로 문자열을 원소로 만든다음, reverse()
+    메소드로 리스트를 뒤집어 준다음 join('')으로 합쳐주어 다시 문자열로
+    만들어주었다. 그다음 비교문을 돌려 정답 반환을 하였다. 
+ </pre>
+
+
+</div>
+</details>
+
+
+ 
+ 
+ 
