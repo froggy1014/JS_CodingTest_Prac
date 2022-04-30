@@ -1611,4 +1611,96 @@ console.log(solution(str))
 </div>
 </details>
 
+   <br>
+ 
+ ## 챕터4 - 완전탐색(블루투포스)
+ 
+  <br>
+ 
+ <details>
+<summary>4_1 자릿수의 합</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고, 그 합이 최대인 자연수를 출력 하는 프로그램을 
+ 작성하세요. 자릿수의 합이 같은 경우 원래 숫자가 큰 숫자를 답으로 합니다. 만약 235 와 1234가 동시에 답이 
+ 될 수 있다면 1234를 답으로 출력해야 합니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer;
+  let max = Number.MIN_SAFE_INTEGER;
+
+  for (let x of arr){
+    let sum=0;
+    let tmp = x;
+    while(tmp){
+      sum+=(tmp%10);
+      tmp=Math.floor(tmp/10);
+    }
+    if(sum>max){
+      max = sum;
+      answer = x;
+    }else if ( sum===max){
+      if(x>answer)answer=x;
+    }
+  }
+  return answer;
+}
+const arr = [128,460,603,444,521,137,123];
+console.log(solution(arr));
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(n, arr){
+let answer, max = Number.MIN_SAFE_INTEGER;
+for (let x of arr) {
+    let sum = x.toString().split('').reduce((a, b) => a + Number(b), 0);
+    if (sum > max) {
+        max = sum;
+        answer = x;
+    } else if (sum === max) {
+        if (x > answer) 
+            answer = x;
+        }
+    }
+return answer;
+}
+let arr=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(7, arr));
+```
+ 
+<br>
+
+ <pre>
+ 💬  일단 입력이 숫자라는 가정하에 for of로 요소하나씩 가져와서 해당 요소는 
+    건들면 안되니까 임시로 다른변수에 넣은 다음에 while문을 하나 만들고 
+    sum+=(tmp%10) 를 통해 sum 변수에 요소값을 10으로 나눈 후 나머지값을 더하게 만든다. 
+    그리고 original값은 따로 answer에 보관하고 if 문을통해 먼저 만들어놓은 max와 sum을 비교하여 
+    sum이 더 크면 대체해주고, 만약 sum값이 같은걸 고려해서 else if 문을 만들어 original 요소값이 
+    더 큰지 비교하여 그런 상황에 대비했다. 
+
+    다른 방법은 문자열로 만들어서 해결해보는 방식인데, 똑같이 for of 문으로 
+    요소값을 가져오고 toString().split('') 통해 문자열 한 디짓씩으로 나눈다음에 
+    reduce((a, b) => a + Number(b), 0) 메소드를 통해 
+    디짓하나하나를 더해준다. 그런데 b에 Number을 붙여주지 않으면 숫자로 
+    안 더해지고 그냥 옆에 붙어버린다. 그리고 아래는 똑같다. 
+    </pre>
+
+
+</div>
+</details>
+
+
 
