@@ -1,51 +1,79 @@
 <details>
-<summary>3_5 문자열 압축</summary>
+<summary>4_1 자릿수의 합</summary>
 <div markdown="1">       
 <br>
  
  ### ❓ Question
  
- <pre>알파벳 대문자로 이루어진 문자열을 입력받아 같은 문자가 연속으로 <br>반복되는 경우 반복되는 문자 바로 오른쪽에 반복 횟수를 표기하는 방법으로<br>
-  문자열을 압축하는 프로그램을 작성하시 오. 단 반복횟수가 1인 경우 생략합니다.
+ <pre>N개의 자연수가 입력되면 각 자연수의 자릿수의 합을 구하고, 그 합이 최대인<br> 자연수를 출력 하는 프로그램을 작성하세요. 자릿수의 합이 같은 경우 원래 <br>
+ 숫자가 큰 숫자를 답으로 합니다. 만약 235 와 1234가 동시에 답이 될 수 있다면 1234를 답으로 출력해야 합니다.
  </pre>
 
-
- <br>
+<br>
  
  ### ‼️ Solution
  
  ```javascript
-function solution(str)
-{
-  let answer = "";
-  let letter ;
-  let cnt = 1;
-  for (x of str ){
-    if (letter != x){
-      if ( cnt > 1 ){
-        answer += String(cnt)
-        cnt = 1;
-      }
-      letter = x
-      answer += x;
-    }else cnt++;
+function solution(arr){
+  let answer;
+  let max = Number.MIN_SAFE_INTEGER;
+
+  for (let x of arr){
+    let sum=0;
+    let tmp = x;
+    while(tmp){
+      sum+=(tmp%10);
+      tmp=Math.floor(tmp/10);
+    }
+    if(sum>max){
+      max = sum;
+      answer = x;
+    }else if ( sum===max){
+      if(x>answer)answer=x;
+    }
   }
   return answer;
 }
-const str = "KKHSSSSSSSE"
-console.log(solution(str))
+const arr = [128,460,603,444,521,137,123];
+console.log(solution(arr));
  ```
-
-
+ 
  <br>
 
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(n, arr){
+let answer, max = Number.MIN_SAFE_INTEGER;
+for (let x of arr) {
+    let sum = x.toString().split('').reduce((a, b) => a + Number(b), 0);
+    if (sum > max) {
+        max = sum;
+        answer = x;
+    } else if (sum === max) {
+        if (x > answer) 
+            answer = x;
+        }
+    }
+return answer;
+}
+let arr=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(7, arr));
+```
+ 
+<br>
+
  <pre>
- 💬  선생님이랑 솔루션이 얼추 비슷한거 같아서, 내꺼에 조금만 수정을 했었다.
-     나는 일단 문자열을 무조건 배열로 바꾸려는 습관이 있는데, 선생님꺼는 
-     문자열 그대로 받아서 인덱스를 넣고 하시더라.. 나는 for of로 문자열에서
-     하나씩 가져와 하나 전에 나왔던 것과 비교해서, if문을 구성해 풀었고,
-     모범 솔루션도 얼추 비슷했다.
- </pre>
+ 💬  일단 입력이 숫자라는 가정하에 for of로 요소하나씩 가져와서 해당 요소는 
+    건들면 안되니까 임시로 다른변수에 넣은 다음에 while문을 하나 만들고 
+    sum+=(tmp%10) 를 통해 sum 변수에 요소값을 10으로 나눈 후 나머지값을 더하게 만든다. 그리고 original값은 따로 answer에 보관하고 if 문을통해 
+    먼저 만들어놓은 max와 sum을 비교하여 sum이 더 크면 대체해주고, 만약 sum값이 같은걸 고려해서 else if 문을 만들어 original 요소값이 더 큰지 비교하여 그런 상황에 대비했다. 
+
+    다른 방법은 문자열로 만들어서 해결해보는 방식인데, 똑같이 for of 문으로 
+    요소값을 가져오고 toString().split('') 통해 문자열 한 디짓씩으로 나눈다음에 reduce((a, b) => a + Number(b), 0) 메소드를 통해 
+    디짓하나하나를 더해준다. 그런데 b에 Number을 붙여주지 않으면 숫자로 
+    안 더해지고 그냥 옆에 붙어버린다. 그리고 아래는 똑같다. 
+    </pre>
 
 
 </div>

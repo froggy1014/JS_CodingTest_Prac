@@ -1,18 +1,18 @@
-function solution(s)
-{
-  let answer = "";
-  let cnt=1;
-  s=s+"  ";
-  console.log(s);
-  // for(let i = 0;i<s.length-1;i++){
-  //   if(s[i]===s[i+1])cnt++
-  //   else{
-  //     answer +=s[i];
-  //     if(cnt > 1)answer+=String(cnt);
-  //     cnt=1;
-  //   }
-  // }
+function solution(n, arr){
+  let answer, max=Number.MIN_SAFE_INTEGER;
+  for(let x of arr){
+      let sum=x.toString().split('').reduce((a, b)=>a+Number(b), 0);
+      console.log(sum);
+      // if(sum>max){
+      //     max=sum;
+      //     answer=x;
+      // }
+      // else if(sum===max){
+      //     if(x>answer) answer=x;
+      // }
+  }
+  return answer;
 }
-let str = "KKHSSSSSSSE"
-console.log(solution(str))
 
+let arr=[128, 460, 603, 40, 521, 137, 123];
+console.log(solution(7, arr));
