@@ -1703,4 +1703,94 @@ console.log(solution(7, arr));
 </details>
 
 
+<details>
+<summary>4_2 뒤집은 소수</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre>N개의 자연수가 입력되면 각 자연수를 뒤집은 후 그 뒤집은 수가 소수이면 그 소수를 출력하 는 프로그램을 작성하세요. 예를 들어 32를 뒤집으면 23이고, 23은
+  소수이다. 그러면 23을 출 력한다. 단 910를 뒤집으면 19로 숫자화 해야 한다. 첫 자리부터의 연속된 0은 무시한다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function isPrime(val){
+  if(val===1)return false;
+  for(let i = 2; i <= parseInt(val/2); i++){
+    if(val%i===0) return false;
+  }
+  return true;
+}
+
+function solution(arr){
+  let answer = [];
+  for(let x of arr){
+    let res=0;
+    while(x){
+      let t=x%10
+      res=res*10+t
+      x=parseInt(x/10);
+    }
+    if (isPrime(res)) answer.push(res);
+  }
+return answer;
+}
+const arr = [32,55,62,20,250,370,200,30,100];
+console.log(solution(arr));       
+ ```
+ 
+ <br>
+
+  ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function isPrime(val){
+  if(val===1)return false;
+  for(let i = 2; i <= parseInt(val/2); i++){
+    if(val%i===0) return false;
+  }
+  return true;
+}
+
+function solution(arr){
+  let answer = [];
+  for(let x of arr)
+  {
+    let res=Number(x.toString().split('').reverse().join(''));
+    if (isPrime(res)) answer.push(res);
+  }
+return answer;
+}
+const arr = [32,55,62,20,250,370,200,30,100];
+console.log(solution(arr));       
+```
+ 
+<br>
+
+ <pre>
+ 💬  일단 선생님의 첫번째 솔루션은 문자열로바꿔서 하는 형태가 아닌 수학적으로
+    접근하여, 정수 타입은 그대로 진행했다. for of를 통해서 문자열에서 숫자를 하나씩 가져온다. 
+    그리고 하나씩 가져온 정수를 while()문을 열어서 조건을
+    인자로 넣는다. 그렇게 let t=인자%10로 t에 일의 자리를 넣어준다. 
+    그리고 0으로 먼저 초기화되어있었던 res에 res*10+t를하는데 그러면 
+    res는 일의자리를 가져간다. 그 다음 x=parseInt(x/10) 아까 남아있던
+    몫을 마저 10으로 나눠준다. 그러면 x는 뒤집어질때에 일의 자리 숫자가 된다.
+    다시 while문이 돌아와 아까 그 x가 1이하 값이 되면 escape한다음 소수 인지 검사하는데, 
+    해당 검사하는 것을 함수로 따로 만들어 놓는다, 여기서 소수체크하는 방법을 알았는데, 해당 정수를
+    2 ~ 정수의 절반 까지 모든 수를 나머지 연산을 해보고 다 0이 한번이라도 나온다면 소수가 아닌것이다.
+
+
+    다른 솔루션은 한번 문자열 형태로 바꾼다음에 뒤집어서 모든 문자열을 바꿔놓고 소수를 체크해보는 방법이다.
+    toString().split('').reverse().join(''); 
+    </pre>
+
+
+</div>
+</details>
+
 
