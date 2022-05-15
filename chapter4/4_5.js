@@ -16,7 +16,7 @@ function solution(k,arr){
 }
 k = 3;
 arr = [13,15,34,23,45,65,33,11,26,42];
-console.log(solution(k,arr))
+console.log(solution(k,arr));
 
 
 // function solution(n, k, card) {
