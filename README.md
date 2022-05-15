@@ -1793,4 +1793,219 @@ console.log(solution(arr));
 </div>
 </details>
 
+<details>
+<summary>4_3 멘토링</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> A학생이 멘토, B학생이 멘티가 된고, 멘토는 M번의 수학테스트에서 모두 멘티보다 등수가 앞서야합니다. 
+       M번동안 모두 앞선 멘토 멘티 짝을 총 몇개나 만들 수 있는지 출력하시오.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(test){
+  let answer = 0, temp=[];
+  let m=test.length;
+  let n=test[0].length
+
+  for ( let i = 1; i <=n; i++){
+    for(let j =1; j<=n; j++){
+      let cnt = 0;
+      for (let k = 0; k < m; k++)
+      { 
+        let pi=pj=0;
+        for ( let s = 0; s<n; s++){
+          if (test[k][s]===i) pi=s;
+          if (test[k][s]===j) pj=s;
+        }
+        if(pi<pj) cnt++;
+      }
+      if(cnt===m) {
+        temp.push([i,j]);
+        answer++;
+      }
+  }
+}
+  return answer;
+}
+let arr = [[3,4,1,2],
+           [4,3,2,1],
+           [3,1,4,2]];
+
+console.log(solution(arr));
+     
+ ```
+ 
+ <br>
+
+ <pre>
+ 💬  한참동안 생각해봤지만 도저히 답이 안나와서 인강을 보고 이해하려 노력했으나 아직 완벽히
+    이해는 못한 상태이다. 이 문제도 다시 돌아와서 꼭 한번 다시 풀어봐야할 과제이다. 
+    풀이를 해보자면 일단 모든 참여자 1~4번 참여자들에 대해서 다 for문으로 모든 경우의 수를
+    돌아봐 줘야한다. 그래서 첫 i,j번 멘토와 멘티에 대한 반복문인거고, 다음에 나온 
+    k,s는 K행에 S열로 다 돌아주면서 i,j번 참가자가에 대한 S값(순위)을 임시 변수에 넣어주고
+    행마다 끝나면 멘토가 멘티보다 S값(순위)가 낮다면, cnt++하여 모든 행이 끝나고 나선 cnt값이 
+    행의 length값보다 높은거라면 해당 i,j번 짝의 멘토가 모두 높은거니 answer변수에 1을 추가하면서 
+    모든 경우의 수를 돌며, answer를 반환한다. 
+    </pre>
+
+
+</div>
+</details>
+ 
+ <details>
+<summary>4_4 졸업선물</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 현재 예산으로 최대 몇 명의 학생에게 선물을 사줄 수 있는지 구하는 프로그램을 작성하세요. 
+ 선생님은 상품 하나를 50% 할인해서(반 가격) 살 수 있는 쿠폰을 가지고 있습니다. 배송비는 할인에 포함되지 않습니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(budget, arr){
+  let answer= 0;
+  let n = arr.length;
+  arr.sort((a,b)=>(a[0]+a[1])-(b[0]+b[1]))
+
+  for(let i = 0; i<n; i++){
+    let money= budget-(arr[i][0]/2+arr[i][1])
+    let cnt=1;
+    for(let j=0; j<n; j++){
+      if(j!==i && (arr[j][0]+arr[j][1]) > money) break;
+      if(j!==i && (arr[j][0]+arr[j][1]) <= money){
+        money -= arr[j][0]+arr[j][1];
+        cnt++;
+      }
+    }
+    answer=Math.max(answer,cnt);
+  }
+  return answer;
+}
+budget = 28;
+let arr = 
+[ [6,6],
+  [2,2],
+  [4,3],
+  [4,5],
+  [10,3]]
+console.log(solution(budget, arr));
+ ```
+ 
+ <br>
+
+ <pre>
+ 💬  이 문제도 결국 내가 못 풀고, 인강을 따라 봤다. 선생님께서는 일단
+    배열을 sort()를 이용해서 오름차순으로 문들어 주셨고, 다 더해보면서 값을 
+    찾아내야하니 for문을 만드는데, 일단 돌자마자 첫 i번째 인덱스에서 쿠폰을 맥이고,
+    해당 인덱스의 값을 예산에서 빼고 남은돈으로 다음 j번째 인덱스들의 상품들의 합을
+    빼주어 그 값이 0보다 작으면 break되게 설정해주어, 구매 가능할때마다 cnt를 넣어
+    전체 for문이 끝날때마다 Math.max()를 사용해 제일 많은 제품이 구매할 수 있다면
+    몇개인지 세는.. 그런 문제였는데 역시 어렵다. 다시 해봐야겠다.
+    </pre>
+
+
+</div>
+</details>
+
+ 
+ <details>
+<summary>4_5 K번째 큰 수</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 3장을 뽑아 각 카드에 적힌 수를 합한 값을 기록하려 고 합니다. 
+ 3장을 뽑을 수 있는 모든 경우를 기록합니다. 
+ 기록한 값 중 K번째로 큰 수를 출력 하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(k,arr){
+  let answer =[];
+  let total= [];
+  let rank = k-1
+  for (let i = 0; i < arr.length; i++){
+    for (let j = 0; j<arr.length; j++){
+      if (j===i) break;
+      for(let s = 0; s<arr.length; s++){
+        if(s===j || s===i)break;
+        total.push(arr[i]+arr[j]+arr[s]);
+      }
+    }
+  }
+  answer = total.sort((a,b)=>(b-a)).filter((v,i)=>total.indexOf(v)===i)
+  return answer[rank];
+}
+k = 3;
+arr = [13,15,34,23,45,65,33,11,26,42];
+console.log(solution(k,arr));
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ function solution(n, k, card) {
+  let answer;
+  let tmp = new Set();
+  for(let i = 0; i < n; i++){
+    for(let j = i+1 ; j<n ; j++){
+      for(let k=j+1; k<n; k++){
+        tmp.add(card[i]+card[j]+card[k]);
+      }
+    }
+  }
+  let a=Array.from(tmp).sort((a,b)=>(b-a));
+  answer=a[k-1];
+  return answer;
+}
+let arr = [13, 15, 34, 23, 45, 65, 33, 11, 26, 42];
+console.log(solution(10,3,arr));
+
+```
+
+<br>
+
+ <pre>
+ 💬  전 두 문제보다는 훨씬 쉬웠는데, 내가 한 방법은 총 3장의 카드를 뽑아야하니,
+    3중 for문으로 돌리는데 전에 for문에서 사용한 index는 피해야하니, if문으로 
+    전 for문의 index는 break가 나와 탈출시키고, 제일 안쪽 for문에서 미리 만들어
+    놓은 배열 변수에 3개의 인덱스에 대한 합을 push한 후, sort()로 내림차 순으로
+    만들고, filter()를 통해 중복값을 제거한다음에 answer에 [k-1]인덱스를 적용해 
+    반환하여 정답을 받아 내였다. 
+
+    선생님도 나랑 비슷하게 사용하셨는데, 중복값 제거를 set으로 진행하셨고, for문에서
+    전 for문과 인덱스가 겹치지 않게하려고 첫 조건에 +1을 하셔서 처리했고, new Set()으로
+    선언한 변수에 .add()사용해 합산값을 넣어줬다.  sort는 배열에서만 먹히므로, 
+    새로운 변수에 Array.from(Set변수)를 사용해 새 배열을 만들어 내림차순으로 만들고
+    answer 반환하여 정답을 얻어내셨다. 
+  </pre>
+
+
+</div>
+</details>
+
+
+
+
+
 
