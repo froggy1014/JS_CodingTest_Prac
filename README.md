@@ -2005,6 +2005,178 @@ console.log(solution(10,3,arr));
 </details>
 
 
+  <br>
+ 
+ ## 챕터5 - 효율성(투포인터 알고리즘, 슬라이딩윈도우, 해쉬)
+ 
+  <br>
+ 
+ <details>
+<summary>5_1 두 배열 합치기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 오름차순으로 정렬이 된 두 배열이 주어지면 두 배열을 오름차순으로 합쳐 출력하는 프로그램 을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr1, arr2) {
+  let answer = [];
+    answer = arr1.concat(arr2).sort((a,b)=>(a-b));
+  return answer;
+}
+arr1 = [1,3,5];
+arr2 = [2,3,6,7,9];
+console.log(solution(arr1,arr2));
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ function solution(arr1, arr2) {
+  let answer = [];
+  let n = arr1.length;
+  let m = arr2.length;
+  let p1=p2=0;
+
+  for(let i = 0 ; i < n ; i++){
+    for( let j = i+1 ; j < n ; j++){
+      if (arr1[i] > arr1[j]) {
+        let tmp = arr1[i];  
+        arr1[i] = arr1[j];
+        arr1[j] = tmp;
+      }
+    }
+  }
+  for( let i = 0; i < m; i++){
+    for( let j = i+1 ; j < m ; j++){
+      if (arr2[i] > arr2[j]) {
+        let tmp = arr2[i];  
+        arr2[i] = arr2[j];
+        arr2[j] = tmp;
+      }
+    }
+  }
+
+  while(p1<n && p2<m){
+      if(arr1[p1]<=arr2[p2]) answer.push(arr1[p1++]);
+      else answer.push(arr2[p2++]);
+  }
+  while(p1<n) answer.push(arr1[p1++]);
+  while(p2<m) answer.push(arr2[p2++]);
+
+  return answer;
+}
+arr1 = [3,7,9];
+arr2 = [1,3,4,5,6];
+console.log(solution(arr1,arr2));
+```
+
+<br>
+
+ <pre>
+ 💬  내가 생각한 솔루션은 일단 concat 메소드로 두개의 배열합치고, sort로 오름차 순으로 만들어서 반환 후 출력했다. 간단하게.
+
+     그런데 선생님은 투포인터 알고리즘으로 푸신다고 나랑 좀 다르게하셨다. 일단 그리고 이게 조건이 일단 오름차순으로 주어진다는 조건이고
+     sort메소드를 사용하면 NlogN이라서 병합정렬을 배우기 위해서라도 저런식으로 하셨다고 한다. 그렇게 배열을 오름차순으로 바꿔주고, 
+     while문을 만들어서 arr1에 p1인덱스자리가 arr2에 p2인덱스자리의 숫자보다 작으면 answer에 push하고 인덱스카운터를 올려주는 식으로
+     처리한다음 둘 중에 하나라도 최대 인덱스까지 끝나면 다른 while문 두개를 만들어서 남은 배열의 나머지를 쭉 넣어버리는 while문을 추가하셔서
+     푸셨다. 
+  </pre>
+
+
+</div>
+</details>
+
+ <details>
+<summary>5_2 공통원소 구하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> A, B 두 개의 집합이 주어지면 두 집합의 공통 원소를 추출하여 오름차순으로 출력하는 프로 그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr1,arr2){
+  let answer = [];
+
+  for (let x of arr1){
+    for( let y of arr2){
+      if(x === y)
+      answer.push(x);
+    }
+  }
+  return answer.sort((a,b)=>(a-b));
+}
+let arr1 = [1,3,9,5,2]
+let arr2 = [3,2,5,7,8]
+console.log(solution(arr1,arr2))
+
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(arr1,arr2){
+  let answer = [];
+  arr1.sort((a,b)=>(a-b));
+  arr2.sort((a,b)=>(a-b));
+  let p1=p2=0;
+  
+  while(p1<arr1.length && p2<arr2.length){
+    if (arr1[p1] === arr2[p2]){
+      answer.push(arr2[p2++]);
+      p1++
+    }
+    else if (arr1[p1] < arr2[p2]){
+      p1++
+    }
+    else p2++;
+  }
+  return answer
+}
+let arr1 = [1,3,9,5,2]
+let arr2 = [3,2,5,7,8]
+console.log(solution(arr1,arr2))
+```
+
+<br>
+
+ <pre>
+ 💬  나는 일단 for of를 사용해 첫번째 배열에서 각 원소를 가져와서 두번째 
+    배열에 모든 원소와 비교해서 공통되면 answer라는 변수에 push하고 
+    return할때 sort를 사용해 오름차순으로 바꿨다.
+
+    선생님은 일단 먼저 배열들을 sort()를 사용하여 오름차순으로 바꾸고,
+    p1,p2라는 변수를 0으로 초기화하여 생성하고 while문으로 첫번째 배열의
+    p1인덱스와 두번째 배열의 p2인덱스에 있는 원소를 비교 후 같으면 answer에 push하고, p1이 p2보다 작으면 p1++ 그 반대라면 p2++ 하여 결국 다 
+    answer push()하는 방법이였습니다. 
+    
+  </pre>
+
+
+</div>
+</details>
+
+
+
+
 
 
 
