@@ -2257,6 +2257,64 @@ console.log(solution(sum,arr1))
 </details>
 
 
+<details>
+<summary>5_4 연속 부분수열2</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 수열에서 연속부분수열의 합이 특정숫자 M이하가 되는 경우가 몇 번 있는지 구하는 프로그 램을 작성하세요. M = 5
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(n,arr){
+  let answer=0, lt=0, sum=0;
+
+  for ( let rt =0; rt < arr.length; rt++)
+  {
+    sum += arr[rt];
+    while(sum > 5){
+      sum -=arr[lt++];
+    }
+    answer += (rt-lt+1);
+  }
+  return answer;
+}
+const n = 5;
+const arr = [1,3,1,2,3]
+console.log(solution(n,arr))
+ ```
+ 
+ <br>
+
+
+<br>
+
+ <pre>
+ 💬  바로 전 연속 부분수열1이랑 비슷한 문제였지만 나는 ... 머리가 나빠서인지 혼자서는 풀어내지 못해
+    선생님 솔루션을 바로 봐버렸다. 나는 계속 이중 for문만 머릿속에 멤돌아서 투포인터 변수를 만들어도
+    동시에 두개다 쓸 생각만 했다. 아무래도 이중 for문에 익숙해져버린걸까. for문을 돌면서 rt를 증가시키며 
+    5이하일때 answer 에 (rt-lt+1)를 넣었는데, 이거를 생각했어야했다. 즉 연속 부분수열
+    이 조건에 맞으면 끝인덱스(rt)에 - 첫인덱스(lt) + 1를 하면 그 인덱스 사이에 요소들을 다 더 할 수 
+    있는데 이거를 생각하는게 key였던거 같다. [1 1 3 2] 이런식으로 있으면
+    [1] 1 rt-lt+1 = 1
+    [1] 2 rt-lt+1 = 1
+    [3] 5 rt-lt+1 = 3
+    [2] 7 x
+    while 7-arr[lt++] = 6 x 
+    while 6-arr[lt] 5 rt-lt+1 = 3
+    이런식으로 해서 총 8이 나온다.
+    
+  </pre>
+
+
+</div>
+</details>
 
 
 
