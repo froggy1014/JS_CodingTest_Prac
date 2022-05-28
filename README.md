@@ -2175,6 +2175,86 @@ console.log(solution(arr1,arr2))
 </details>
 
 
+<details>
+<summary>5_3 연속 부분수열1</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 이 수열에서 연속부분수열의 합이 특정숫자 M이 되는 경우가 몇 번 있는지 구하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(sum,arr1){
+  let answer = 0;
+  for(let i = 0; i<arr1.length; i++)
+  {
+    let cnt = 0;
+    for(let j = i; j < arr1.length+1; j++){
+      if( cnt < sum )
+        {
+        cnt += arr1[j];
+        }
+      else if (cnt === sum)
+      {
+        answer++;
+        break;
+      }
+      else break;
+    }
+  }
+  return answer
+}
+let sum = 6;
+let arr1 = [1,2,1,3,1,1,1,2]
+console.log(solution(sum,arr1))
+ ```
+ 
+ <br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution (sum, arr1){
+  let answer = 0, lt=0, total=0;
+  for(let rt=0; rt<arr1.length; rt++)
+  {
+    total += arr1[rt];
+    if(total===sum) answer++;
+    while(total >= sum)
+    {
+      total -= arr1[lt++];
+      if(total === sum) answer++;
+    }
+  }
+  return answer;
+}
+let sum = 6;
+let arr1 = [1,2,1,3,1,1,1,2]
+console.log(solution(sum,arr1))
+```
+
+<br>
+
+ <pre>
+ 💬  내가 구상한 방법은 2중 for문으로 약간 블루투포스(?) 방식으로 풀었다고해야할까 
+    무식하지만 그 방법으로 풀어냈다. 
+
+    그런데 선생님의 예상은 적중했다. 투포인터 알고리즘을 사용안하면 이중 for문 사용할 것이라는
+    걸 바로 간파하셨고, 선생님 같은경우는 lt, rt 변수를 따로 만들어줘서 For 인수로 rt를 넣고,
+    목표값과 같아지면 answer에 +1해주고, 그 더 크거나 같을 경우에 while문을 걸어 lt을 가져와서
+    총합에서 arr[lt]를 빼줌으로써 위 if문에 맞을때해주는걸 계속 반복한다.. 
+    
+  </pre>
+
+
+</div>
+</details>
 
 
 
