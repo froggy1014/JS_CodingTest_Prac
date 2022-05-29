@@ -2317,5 +2317,167 @@ console.log(solution(n,arr))
 </details>
 
 
+<details>
+<summary>5_5 최대 매출</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 연속 된 K일 동안의 최대 매출액이 얼마인지 구하라고 했습니다. K = 3
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(k, arr)
+{
+  let answer = 0;
+  for( let rt = k-1; rt < arr.length; rt++)
+  {
+    let temp_total = 0;
+    temp_total = arr[rt-2]+arr[rt-1]+arr[rt]
+    if(answer < temp_total) answer = temp_total ;
+  }
+  return answer;
+}
+k = 3;
+arr = [12,15,11,20,25,10,20,19,13,15]
+console.log(solution(k,arr))
+ ```
+ 
+ <br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(k, arr)
+{
+  let answer = 0, temp_total = 0;
+  for(let i = 0; i < k; i++) temp_total += arr[i];
+  answer = temp_total;
+  for (let i = k ; i < arr.length; i++)
+  {
+    temp_total += arr[i]-arr[i-k]
+    answer = Math.max(answer, temp_total);
+  }
+  return answer;
+}
+k=3;
+arr = [12,15,11,20,25,10,20,19,13,15];
+console.log(solution(k,arr))
+```
+
+<br>
+
+ <pre>
+ 💬  이번에는 이중 For문을 기필코야 쓰지않겠다고 했지만, 안써보니 좀 추한코드가 된거 같다.
+    For문 하나를 쓰는데, 오른쪽 인덱스를 하나씩 증감시키고, 왼쪽 인덱스를 [rt-2][rt-1] 
+    이런 식으로 for문안에 손으로 기입해 합을 구한 뒤 비교하여 answer에 넣는 식으로 구현 했다.
+    맘에 안들지만.. 동작은 되서 이렇게 올려놨다.
+
+    선생님이 사용하셨던 방법은 사뭇다르다. 역시 깨긋하다. 슬라이딩 윈도우라는 알고리즘(?)으로 불리는
+    듯 하다. 말그대로 창문을 옆으로 이동한다는 그런 뜻인것 같고, 선생님 코드에서는 일단 첫 k개의
+    인덱스를 temp_total변수에 넣어주고, answer에서 그 값으로 초기화해준다. 그런 다음 for문으로
+    i를 k로 초기화해주고, temp_total 에  arr[i]인덱스 값을 더해주고, 그 전 맨첫번째 인덱스 즉,
+    arr[i-k]인덱스를 빼줌으로써 그러면 오른쪽으로 인덱스가 한칸 움직인 것처럼 되는데, 이 상태에서 
+    answer와 temp_total를 Math.max로 비교해주고 더 큰 값을 넣어줘서 풀어내셨다. 
+  </pre>
+
+</div>
+</details>
+
+ <details>
+<summary>5_6 학급 회장(해쉬)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 두 번째 줄에 N개의 투표용지에 쓰여져 있던 각 후보의 기호가 선생님이 발표한 순서대로 문자열로 입력됩니다.
+ 학급 회장으로 선택된 기호를 출력합니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr)
+{
+  let answer = '';
+  let cand = ['A','B','C','D','E']
+  let newarr = arr.split('')
+  let temp_cnt = 0; 
+
+  for(let i = 0; i < cand.length; i++)
+  {
+    if (temp_cnt < newarr.filter(element => cand[i] === element).length)
+    {
+      temp_cnt = newarr.filter(element => cand[i] === element).length;
+      answer = cand[i];
+    }
+  }
+  return answer;
+}
+let arr ="BACBACCACCBDEDE"
+console.log(solution(arr))
+ ```
+ 
+ <br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s){
+  let answer = 0;
+  let sH = new Map()
+  for (let x of s){
+    if(sH.has(x))
+      sH.set(x, sH.get(x)+1)
+    else 
+      sH.set(x, 1);
+  }
+  let max = Number.MIN_SAFE_INTEGER;
+  for( let [key,val] of sH )
+    {
+      if (max < val)
+      {
+        max = val;
+        answer = key;
+      }
+    }
+  return answer;
+}
+let str = "BACBACCACCBDEDE"
+
+console.log(solution(str))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 입력이 문자열로 오는 문제라 어떻게 풀어내야할지 조금 어려웠다. 
+    항상 해왔던 대로 당연하듯이 문자열을 split()메소드를 통해 리스트로 만들었고, 후보 목록들을 
+    리스트를 따로 만들어서 해당 리스트로 for문을 만들고, 그 안에 if 문을 통해서 미리 초기화해놓은
+    temp_cnt와 newarr.filter(element => cand[i] === element).length 를 통해 그 후보가
+    배열안에 몇개나 있는지 length 로 가져와 비교 및 answer에 삽입하는 식으로 풀었다. 그런데 
+    후보를 내가 직접 입력해서 배열을 만들고, 굳이 문자열을 리스트로 바꾸워서 아쉬웠다.
+
+    선생님 솔루션은 일단 Map()으로 key와 value를 쌍으로 갖을 수 있게 변수 하나를 선언하고, 
+    For of 를 사용해서 문자열에서 문자을 하나씩 가져와서 if(sH.has(x)) sH.set(x, sH.get(x)+1)
+    즉 for of 로 가져온 문자를 가지고 있으면 해당 key(x)에 .get+1 1을 더해주고, 
+    else sH.set(x, 1); 만약에 문자에 해당되는 key가 없으면 초기값 1을 주고, 만들어준다. 
+    그 다음 다시 For of 문으로 sH에서 key, value값을 가져와서 비교하고 마지막 answer에 들어간
+    값이 정답 ! 
+  </pre> 
+
+</div>
+</details>
+
 
 
