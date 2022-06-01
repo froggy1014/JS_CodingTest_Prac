@@ -2479,5 +2479,57 @@ console.log(solution(str))
 </div>
 </details>
 
+<details>
+<summary>5_7 아나그램(해쉬)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> Anagram이란 두 문자열이 알파벳의 나열 순서를 다르지만 그 구성이 일치하면 두 단어는 아 나그램이라고 합니다. 
+ 어느 한 단어를 재 배열하면 상대편 단어가 될 수 있는 것을 아나그램이라 합니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr1,arr2){
+  let answer = "Yes";
+  let sH = new Map();
+
+  for( let x of arr1){
+    if (sH.has(x))
+      sH.set(x, sH.get(x)+1)
+    else 
+      sH.set(x, 1)
+  }
+  for( let t of arr2)
+  {
+    if (!sH.has(t)|| sH.get(t) === 0) return "No"
+    sH.set(t, sH.get(t)-1)
+  }
+    return answer;
+}
+arr1 = "abaCC"
+arr2 = "CaaCb"
+console.log(solution(arr1,arr2))
+ ```
+
+<br>
+
+ <pre>
+ 💬  생각을 해보다가, 도저히 안되겠어서 솔루션을 봤다. map()이라는 메소드를 이용해서 새롭게 변수를 만들어준다. 그리고 나서 for of문을 통해, 
+ 앞서 만들어준 변수에 첫번째 배열에서 하나씩 빼서 if문으로 비교를 해고, 있다면 x에 해당되는 key값에 value를 +1해주고, 없다면 x라는 key값을 
+ 하나 set()해주고, value를 1로 세팅해준다. 이렇게 첫번째 배열을 다 해주고, 그 변수에 두번째 배열을 for of로 다시 하나씩 비교해주면서 해당 
+ key값이 존재하면 key값 value에 -1 씩해주고, 그리고 다른 조건식으로 key값이 존재하지않거나 그 key값이 value가 이미 0이라면 "No" return하고 
+ 마지막 까지 조건에 맞으면 원래 설정해놓은 "Yes"가 그대로 나간다. 
+
+  </pre> 
+
+</div>
+</details>
+
 
 
