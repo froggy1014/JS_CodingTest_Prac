@@ -2531,5 +2531,74 @@ console.log(solution(arr1,arr2))
 </div>
 </details>
 
+ <details>
+<summary>5_8 모든 아나그램 찾기(해쉬, 투포인터, 슬라이딩 윈도우)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 문자열에서 T문자열과 아나그램이 되는 S의 부분문자열의 개수를 구하는 프로그램을
+  작성하세요. 아나그램 판별시 대소문자가 구분됩니다. 부분문자열은 연속된 문자열이어야 합니다
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function compareMaps(map1, map2){
+  if(map1.size !== map2.size)return false;
+  for(let [key,value] of map1){
+    if(!map2.has(key) || map2.get(key) !== value) return false;
+  }
+  return true;
+}
+
+function solution(arr1,arr2){
+  let answer = 0;
+  let sH = new Map();
+  let tH = new Map();
+
+  for(let t of arr2){
+    if (tH.has(t)) tH.set(t, tH.get(x)+1);
+    else tH.set(t, 1);
+  }
+  let len = arr2.length-1
+  for(let i = 0 ; i < len ; i++){
+    if (sH.has(arr1[i])) sH.set(arr1[i], sH.get(arr1[i])+1);
+    else sH.get(arr1[i]+1);
+  }
+
+  let lt = 0;
+  for (let rt=len; rt < arr1.length; rt++){
+    if (sH.has(arr1[rt])) sH.set(arr1[rt], sH.get(arr1[rt])+1);
+    else sH.set(arr1[rt],1);
+    if(compareMaps(sH,tH)) answer++;
+    sH.set(arr1[lt], sH.get(arr1[lt])-1);
+    if(sH.set(arr1[lt])===0) sH.delete(arr1[lt]);
+    lt++
+  }
+  return answer;
+}
+let arr1 = "bacaAacba";
+let arr2 = "abc";
+console.log(solution(arr1,arr2));
+ ```
+
+<br>
+
+ <pre>
+ 💬  이번 챕터에서 배운 모든 걸 써먹으라는 문제였다. 일단 열심히 해보다가 결국 솔루션을
+ 봐버렸는데, Map 객체 변수를 일단 두개 만들어 주고, for of 로 두번째 문자열을 잡아주고,
+ 그리고 두번째 문자열 길이만큼 for of로 첫번째 문자열을 Map 객체 변수로 넣어주고, 슬라이
+ 딩 윈도우 알고리즘으로 for문을 돌려서 하나씩 이동하면서, 비교해주고, 하나라도 조건이 안맞으면 false 를 반환하는 식으로 하셨다. 
+
+  </pre> 
+
+</div>
+</details>
+
+
 
 
