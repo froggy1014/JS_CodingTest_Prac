@@ -2599,6 +2599,127 @@ console.log(solution(arr1,arr2));
 </div>
 </details>
 
+  <br>
+ 
+ ## 챕터6 - 자료구조(스택, 큐)
+ 
+  <br>
 
+<details>
+<summary>6_1 올바른 괄호</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 괄호가 입력되면 올바른 괄호이면 “YES", 올바르지 않으면 ”NO"를 출력합니다.
+(())() 이것은 괄호의 쌍이 올바르게 위치하는 거지만, (()()))은 올바른 괄호가 아니다.
+ </pre>
 
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+  let answer = "Yes"
+  let stack = [];
+
+  for (let x of s){
+    if(x==='(') stack.push(x);
+    else {
+      if(stack.length === 0) return "No";
+      stack.pop();
+    }
+  }
+  if(stack.length>0) return "NO";
+  return answer;
+}
+let str = "()(()()"
+console.log(solution(str))
+ ```
+
+<br>
+
+ <pre>
+ 💬  내 나름대로 먼저 Map 객체를 통한 key,value에서 value값을 비교해서 나오도록 했지만 괄호가 반대로 
+ 나와버려도 정상으로 인식해버려서, 그냥 솔루션을 따라해봤다. 선생님은
+ 스택 변수를 일단 만드시고, 열린 괄호가 나오면, push하고, 닫는 괄호가 나온다면, pop으로
+ 리스트를 지워주고, length가 for of를 다 돌기전에 0가 되면, 거꾸로 된거니까 "No"
+ 반환을 해주고 문제없이 다 돌게되면 기존에 넣어뒀던 "YES" 출력
+  </pre> 
+
+</div>
+</details>
+ 
+ <details>
+<summary>6_2 괄호문자제거</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 입력된 문자열에서 소괄호 ( ) 사이에 존재하는 모든 문자를 제거하고 남은 문자만 출력하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+  let answer = [];
+  let flag = 0;
+
+  for (let x of s){
+    if (x === "(")
+      flag++;
+    else if (x === ")") 
+      flag--; 
+    else if (flag === 0)
+      answer.push(x)
+  }
+  return answer.join('');
+}
+let str = "(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+console.log(solution(str))
+ ```
+
+<br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(s){
+  let answer;
+  let stack = []
+  for (let x of s){
+    if(x===')')
+    {
+      while(stack.pop()!=='(');
+    }
+    else stack.push(x)
+  }
+  answer = stack.join('');
+  return answer;
+}
+let str = "(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+console.log(solution(str))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 내가 구현해본 코드는 flag라는 변수를 0으로 초기화하고, 열린 괄호가 생기면 
+ flag에 ++ 닫는 괄호라면 --, 0이 되면 리스트에서 push해서 넣어주고, answer을 
+ 반환할때 join으로 문자열로 치환해준다. 
+
+ 선생님이 제시한 솔루션은 역시 스택이라는 리스트를 먼저 만들어서 for of로 돌리고,닫는 
+ 괄호 외에는 스택이라는 리스트에 계속 push를 해주고, 만약 닫는 괄호가 나오면 그 리스트안에 
+ 여는 괄호가 나올때까지 pop을 해서 다 지워주는 걸 반복하고 반환하실때도 
+ 나처럼 join메소드로 문자열로 치환해주셨다. 
+  </pre> 
+
+</div>
+</details>
 
