@@ -2723,3 +2723,433 @@ console.log(solution(str))
 </div>
 </details>
 
+ <details>
+<summary>6_3 크레인 인형뽑기(카카오 기출)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+게임 화면의 격자의 상태가 담긴 2차원 배열 board와 인형을 집기 위해 크레인을 작동시킨 
+위치가 담긴 배열 moves가 매개변수로 주어질 때, 크레인을 모두 작동시킨 후 터트려져 사라진 
+인형의 개수를 return 하도록 solution 함수를 완성해주세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(board, moves){
+  let answer = 0;
+  let bucket = [];
+  for( let i = 0; i < moves.length; i++)
+  {
+    let move = moves[i]-1;
+    let escape = idx = 0;
+    while(escape === 0)
+    {
+        if(board[idx][move] === 0) 
+        {
+          if (idx === 4) escape = 1;
+          else idx++;
+        }
+        else if (board[idx][move] !== 0)
+        {
+          if(bucket[bucket.length-1] === board[idx][move])
+          {
+            bucket.splice(bucket.length-1,1);
+            answer += 2;
+          }
+        else 
+          {
+            bucket.push(board[idx][move]);
+          }
+          board[idx].splice(move,1,0); 
+          escape = 1;
+        }
+    }
+  }
+  return answer;
+}
+let board = [
+  [0,0,0,0,0],
+  [0,0,1,0,3],
+  [0,2,5,0,1],
+  [4,2,4,4,2],
+  [3,5,1,3,1]]
+let moves = [1,5,3,5,1,2,1,4];
+console.log(solution(board, moves));
+```
+
+<br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+ function solution(board, moves)
+{
+  let answer = 0;
+  let stack = [];
+  moves.forEach(pos => {
+    for (let i = 0; i < board.length; i++){
+      if(board[i][pos-1]!==0){
+        let tmp=board[i][pos-1];
+        board[i][pos-1]=0;
+        if(tmp===stack[stack.length-1]){
+          stack.pop()
+          answer+= 2;
+        }
+        else stack.push(tmp);
+        break;
+      }
+    }
+  })
+  return answer;
+}
+let board = [
+  [0,0,0,0,0],
+  [0,0,1,0,3],
+  [0,2,5,0,1],
+  [4,2,4,4,2],
+  [3,5,1,3,1]]
+let moves = [1,5,3,5,1,2,1,4];
+console.log(solution(board, moves));
+```
+
+<br>
+
+ <pre>
+ 💬  일단 내가 만든 코드는 escape라는 변수를 하나 선언 및 0으로 초기화 한상태에서 
+    while로 계속 돌려주면서 이중인덱스로 스택 쌓아주고, 앞에 인덱스의 숫자와 같다면 
+    splice로 지워주고 2를 answer에 더해주고 다 끝나면 escape에 1을 넣어주어서 
+    while문을 끝내준다음에 값을 반환하게 만들었다. 
+
+    선생님이 구현하신 코드는 forEach문으로 moves의 요소들을 하나씩 가져오고 똑같이
+    if문으로 확인하고 반환해주는 식인데 forEach를 사용하니까 좀더 코드가 간결해지고
+    좋았다. 
+  </pre> 
+
+</div>
+</details>
+
+ <details>
+<summary>6_4 후위식 연산(postfix)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+  let answer = 0;
+  let num = [];
+  let rt = lt = 0;
+
+  for ( let x of s){
+    if (Number.isInteger(Number(x)) === true)
+        { 
+          num.push(Number(x))
+        }
+    else{
+      rt = num[num.length-1];
+      lt = num[(num.length-1)-1];
+      num.pop();
+      num.pop();
+      let temp_answer = 0;
+      if( x === '+'){
+        temp_answer = lt + rt;
+        num.push(temp_answer);
+      }
+      else if( x === '*'){
+        temp_answer = lt * rt;
+        num.push(temp_answer);
+      }
+      else if( x === '-'){
+        temp_answer = lt - rt;
+        num.push(temp_answer);
+      }
+      else{ 
+      temp_answer = lt / rt;
+      num.push(temp_answer);
+    }
+    }
+  }
+  answer = num[0]
+  return answer; 
+}
+let str = "352+*9-"
+console.log(solution(str))
+```
+
+<br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+
+function solution(s){
+  let answer;
+  stack = [];
+  for ( let x of s){
+    if(!isNaN(x)) stack.push(Number(x));
+    else{
+      let rt = stack.pop();
+      let lt = stack.pop();
+      if(x==='+') stack.push(lt+rt);
+      else if(x==='-') stack.push(lt-rt);
+      else if(x==='*') stack.push(lt*rt);
+      else if(x==='/') stack.push(lt/rt);
+    }
+  }
+  answer = stack[0];
+  return answer;
+}
+let str = "3352+*9-";
+console.log(solution(str))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 내가 구현한 코드는 for of로 입력값에서 숫자만 배열에 넣어 놓고
+    연산자가 나오면 아까 숫자만 넣었던 배열 맨뒤와 그 앞에 인덱스를 두개
+    rt, lt로 선언한뒤, 연산자에 따라서 계산하고, 임시로 선언한 변수에 합산을
+    해주고나서 answer로 변환해줍니다. 
+
+    선생님이 구현하신 코드도 많이 비슷하면데, 메소드를 사용해서, 코드가 훨씬
+    간결하고 눈에 보기도 좋았따..
+  </pre> 
+
+</div>
+</details>
+
+
+<details>
+<summary>6_5 쇠막대기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+쇠막대기와 레이저의 배치를 나타내는 괄호 표현이 주어졌을 때, 
+잘려진 쇠막대기 조각의 총 개수를 구하는 프로그램을 작성하시오.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(s){
+  let answer = 0;
+  let stack = [];
+  
+  for ( let i = 0 ; i < s.length; i++){
+    if (s[i] === '(') stack.push(s[i]); 
+    else if (s[i] === ')'){
+      stack.pop();
+      if(s[i-1] === '(') answer += stack.length;
+      else answer += 1;
+    }
+  }
+  return answer;
+}
+let str = "()(((()())(())()))(())";
+console.log(solution(str))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 문제를 보고 진짜 답ㅇ르 모르겠어서 선생님 솔루션을 보고 진행을 했었는데,
+    설명을 보고 이렇게 간단한 거였나 싶었다. stack 배열 변수 선언해주고, 
+    인덱스를 사용해야하기 때문에 평범한 for문으로 진행을 했고, 여는 괄호면 stack에
+    넣어주고, 닫는괄호면 배열에서 pop으로 지워주고, 만약 앞 인덱스가 여는 괄호면 answer에 
+    그 스택 length로 구해 더해주고, 아니면 answer에 그냥 1을 더해준다.
+    이거는 직접 설명들으면서 해야 헷갈리지않았다. ㅠ 
+  </pre> 
+
+</div>
+</details>
+
+ <details>
+<summary>6_6 공주 구하기</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+1번 왕자부터 시 계방향으로 돌아가며 1부터 시작하여 번호를 외치게 한다. 
+한 왕자가 K(특정숫자)를 외치면 그 왕자는 공주를 구하러 가는데서 제외되고 원 밖으로 
+나오게 된다. 그리고 다음 왕자부터 다시 1부터 시작하여 번호를 외친다.
+마지막  왕자의 번호를 구하면 된다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(n, k){
+  let answer ; 
+  let stack = [];
+  let cnt = 1;
+  for(let i = 1; i <= n ; i++)
+    stack.push(i);
+  while(stack.length !== 1)
+  {
+    for(let i = 0; i < stack.length; i++){
+      if (cnt === k){
+        stack.splice(i,1)
+        i -= 1;
+        cnt = 1;
+      }
+      else cnt++;
+    }
+  }
+  answer = stack[0];
+  return answer;
+}
+let prince = 8;
+let num = 3;
+console.log(solution(prince, num));
+```
+
+<br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(n, k){
+  let answer;
+  let queue = Array.from({length:n}, (v,i)=>i+1);
+  while(queue.length){
+    for(let i = 1; i<k; i++) queue.push(queue.shift());
+    queue.shift();
+    if(queue.length === 1) answer = queue.shift();
+  }
+  return answer;
+}
+let princes = 8;
+let num = 3;
+console.log(solution(princes, num))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 내가 구현해본 코드를 설명해보자면, stack에 먼저 push를 
+    해서 n번 왕자들을 넣어주고, 스택 length가 하나 남을때까지
+    돌게 해놓은 다음에 k와 cnt라는 변수가 같아지면 i번 인덱스를 splice를 통해서 제거하고 i에 -1을 하고, 
+    cnt를 1로 다시 초기화를 시켜놓는다. 그전까지는 그냥 cnt만 1증가시키고, 결국
+    스택에 한개만 남게되면 해당 stack을 answer에 넣어 반환하였다. 
+
+    선생님의 방법은 queue라는 변수를 선언 후 Array.from으로 n번까지로 이뤄진 배열을 만들고, 
+    while문을 돌려서 그 안에 for문으로 k번까지 shift하고 해당 요소르 푸시하여 뒤로 
+    보내줍니다. 그리고 큐에 하나밖에 안남으면 answer에 넣어주고 반환을 해줍니다. 
+  </pre> 
+
+</div>
+</details>
+ 
+ <details>
+<summary>6_7 교육과정 설계</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+  필수과목과 수강과목이 나오는데 필수 과목이 순서대로 수강과목에
+  있다면 "YES" 출력 순서가 틀리거나 없다면 "NO" 출력
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(imp, classes){
+
+  let answer = "YES"
+  let queue = classes.split('');
+  let cnt = Number.MIN_SAFE_INTEGER;
+
+  for( let d of imp){
+    for ( let i = 0; i < queue.length; i++){
+      if ( queue[i] === d ){
+         if(i < cnt) return "No"
+        cnt = i;
+      }
+    }
+  }
+    return answer;
+}
+let imp = "CBA";
+let classes = "CDGETYA";
+console.log(solution(imp, classes));
+```
+
+<br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(need, plan){
+  let answer = "YES";
+  let queue  = need.split('');
+
+  for(let x of plan){
+    if(queue.includes(x)){
+      if(x!==queue.shift())
+        return "NO";
+    }
+  }
+  if(queue.length>0) return "No";
+  return answer;
+}
+let a = "CBA";
+let b = "CBDGEA";
+console.log(solution(a,b));
+```
+
+<br>
+
+ <pre>
+ 💬  내가 구현한 코드로는 수강과목들을 split을 통해 배열로 만들고,
+    for of 필수과목을 하나씩 가져오면서 아까 만들어놓은 수강과목 배열을 하나씩 
+    for문으로 훑으면서 같으면 해당 인덱스를 기록해서
+    cnt라는 변수에 넣어주고, 매번 i인덱스와 다음 필수과목이 겹칠때
+    기록했던 인덱스보다 작으면 순서가 틀린거고 나머지 상황에서는 다 
+    "NO"를 반환하게 하였고, 아무 이상없이 for문을 나오면 
+    기존에 설정해두었던 "YES"가 나오는 것이다.
+
+    선생님도 똑같이 queue에 split을 통한 배열을 만들었지만
+    수강과목이 아닌 필수과목을 넣었고, 수강과목을 for of로 
+    돌리면서 첫 if문은 queue.includes로 가지고 있는지
+    그리고 queue.shift에 for of의 x가 같지않다면 "NO"
+    를 반환하고 다 끝나고 난 후 queue에 if 문으로 length가
+    0보다 크면 다 있는게 아닌거니까 또 "NO"를 반환하게 하였고,
+    모든 조건이 충족되면 기존의 "YES" 반환되게 하였다.
+  </pre> 
+
+</div>
+</details>
+
+
