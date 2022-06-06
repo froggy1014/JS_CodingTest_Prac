@@ -55,5 +55,5 @@ function solution(s){
   answer = stack[0];
   return answer;
 }
-let str = "35-";
+let str = "3352+*9-";
 console.log(solution(str))
