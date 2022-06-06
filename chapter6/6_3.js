@@ -16,16 +16,12 @@
 //         {
 //           if(bucket[bucket.length-1] === board[idx][move])
 //           {
-//             console.log("겹치는거 발견");
 //             bucket.splice(bucket.length-1,1);
-//             console.log(bucket);
 //             answer += 2;
 //           }
 //         else 
 //           {
-//             console.log("스택쌓기");
 //             bucket.push(board[idx][move]);
-//             console.log(bucket);
 //           }
 //           board[idx].splice(move,1,0); 
 //           escape = 1;
