@@ -3152,4 +3152,251 @@ console.log(solution(a,b));
 </div>
 </details>
 
+ 
+   <br>
+ 
+ ## 챕터7 - 정렬과 그리디, 결정알고리즘
+ 
+  <br>
+ 
+ <details>
+<summary>7_1 선택 정렬</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 
+정렬하는 방법은 선택정렬입니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr) {
+  let answer = arr.sort((a,b) => (a-b));
+  return answer;
+}
+let arr = [13, 5, 11, 7,23,15];
+console.log(solution(arr))
+```
+
+<br>
+
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(arr){
+  let answer = arr;
+    for ( let i = 0; i < arr.length-1; i++){
+      let idx = i;
+      for ( let j = i+1 ; j < arr.length; j++){
+        if(arr[j] < arr[idx]) idx=j;
+      }
+      [arr[i], arr[idx]] = [arr[idx], arr[i]]
+    }
+  return answer;
+}
+let arr = [13,5,11,7,23,15]
+console.log(solution(arr))
+```
+
+<br>
+
+ <pre>
+ 💬  내가 구현한 선택 정렬은 그 정렬 메커니즘을 안쓰고, sort() 메소드로
+    간편하게 만들었지만 문제의도는 그게 아니였던거 같다.. 
+
+    선생님이 구현한 선택 정렬은 일단 answer에 shallow copy를 하고, 
+    일단 처음부터 끝까지 스캔을 해야하니까 for문을 하나 만들어주고 그 안에
+    이중 for문을 만들어 초기값을 처음 for문의 i에 +1을 하여 다음 인덱스와
+    비교하게끔 한다. for문들 사이에 idx = i 라는 임시적으로 변수를 만드는데,
+    그리고 여기서 if문으로 j와 앞에서 만든 idx로 두 인덱스에 위치한 값을 비교해서
+    j의 값이 더 크다면 idx에 j값을 계속 바꿔 넣어주면 이중 for문이 끝나면 
+    기존 i와 idx에 저장되있던 index에 위치한 두 값을 교환해주기 위해 
+    [arr[i], arr[idx]] = [arr[idx], arr[i]] 이런 방식을 사용한다.
+    최신 자바스크립트에는 적용이 되있는거라고 한다. 
+  </pre> 
+
+</div>
+</details>
+
+ <details>
+<summary>7_2 버블 정렬</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 버블정렬입니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer = arr;
+
+  for (let i=0; i < arr.length-1; i++){
+    for(let j=0; j < arr.length-i-1; j++){
+      if (arr[j] > arr[j+1]) [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+    }
+  }
+  return answer;
+}
+arr = [35,23,11,4,36,1];
+console.log(solution(arr))
+```
+
+<br>
+
+ <pre>
+ 💬  나는 이 버블 정렬이란게 뭔지 몰랐다. 그래서 한번 설명을 들어야 구현을 할 수 있
+    었다. 버블 정렬이란게 인접한 두 인덱스에 위치한 값을 비교해가면서 for문을 진행함에 
+    따라 2중 for문에서 배열의 끝의 값들이 비교가 필요하니 제외시켜주면서 정렬해주는
+    방식이다.  그래서 이중 for을 보면 length-i-1이 있는데, 위에 for문이 지남에
+    따라 맨뒤에 값은 어차피 제일 크니가 제외시키면서 최대한 헛일을 줄이는 것이다.
+  </pre> 
+
+</div>
+</details>
+
+ <details>
+<summary>7_3 Special Sort(구글 인터뷰)</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+N개의 정수가 입력되면 당신은 입력된 값을 정렬해야 한다.
+음의 정수는 앞쪽에 양의정수는 뒷쪽에 있어야 한다. 
+또한 양의정수와 음의정수의 순서에는 변함이 없어야 한다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer = [];
+  for ( let t of arr) if(t<0) answer.push(t)
+  for ( let x of arr)if(x>0) answer.push(x)
+  return answer;
+}
+let arr = [-8,4,7,-4,-9,2,3];
+console.log(solution(arr))
+```
+
+<br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(arr){
+  let answer = arr;
+  for (let i=0; i < arr.length-1; i++){
+    for(let j=0; j < arr.length-i-1; j++){
+      if (arr[j] > 0 && arr[j+1] < 0) [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+    }
+  }
+  return answer;
+}
+let arr = [1,2,3,-3,-2,5,6,-6];
+console.log(solution(arr))
+```
+<br>
+
+ <pre>
+ 💬  일단 내가 구현한 코드는 정말 단순히 for of를 두개 돌리는데 첫번째꺼에
+    0보다 작으면 먼저 answer로 push해서, 음수 넣고 다른 건 0보다 크면
+    push해서 음수를 순서대로 넣어버렸지만,, 문제는 그 의도가 아니였기에 
+    선생님의 풀이를 봤어야 했다. 
+
+    보고 나니 정말 단순했다. 앞서 사용한 버블 정렬을 사용하는건데, 일단 같은
+    음수랑 양수끼리는 순서를 바꾸지 않기에 버블 정렬에 이중포문에 if 조건문을
+    넣는데, 왼쪽 index가 0보다 크고(양수) 오른쪽 index가 0보다 작으면(음수)
+    둘이 값을 교환해주는 식으로 가면 결국에는 우리가 바라던 답이 나온다. 
+  </pre> 
+
+</div>
+</details>
+
+  <details>
+<summary>7_4 삽입 정렬</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+N개이 숫자가 입력되면 오름차순으로 정렬하여 출력하는 프로그램을 작성하세요. 정렬하는 방법은 삽입정렬입니다
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr) {
+  let answer = [];
+  for( let i = 0 ; i < arr.length; i++){
+    for (let j = 0; j < arr.length-i-1; j++){
+      if(arr[j] > arr[j+1]) [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+    }
+    answer.unshift(arr[arr.length-i-1]);
+  }
+  return answer;
+}
+let arr = [11, 7, 5, 6,10,9];
+console.log(solution(arr));
+```
+
+<br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(arr) {
+  let answer = arr;
+  for( let i = 0 ; i < arr.length; i++){
+    let temp = arr[i], j;
+    for(j=i -1; j >= 0; j--){
+      if(arr[j]>temp) arr[j+1] = arr[j]
+      else break;
+    }
+    arr[j+1]=temp;
+  }
+  return answer;
+}
+let arr = [11, 7, 5, 6,10,9];
+console.log(solution(arr));
+
+```
+<br>
+
+ <pre>
+ 💬  나는 삽입정렬이라길래, 나름대로 삽입한다고 버블정렬 사용해서 unshift로 배열
+    맨 뒤 값부터 하나씩 넣어서 완성했는데, 역시 그 의도가 그게 아니더군요. 
+
+    선생님 방식은 일단 버블정렬과 비슷해보였지만? 요소들을 스캔하는걸 반대방향부터
+    하게끔 한다고 해야할까, 그리고 temp라는 변수에 첫번째 for문의 i인덱스 값을
+    넣어주고, i인덱스를 기준으로 왼쪽으로 진행해주면서, 조건에 따라 값을 바꿔주고 
+    마지막엔 j+1에 temp 변수값을 넣어주며 마무리..
+  </pre> 
+
+</div>
+</details>
+
+
+ 
+
 
