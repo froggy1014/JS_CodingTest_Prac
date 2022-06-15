@@ -3396,6 +3396,219 @@ console.log(solution(arr));
 </div>
 </details>
 
+<details>
+<summary>7_5 Least Recently Used</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+캐시의 크기가 주어지고, 캐시가 비어있는 상태에서 N개의 작업을 CPU가 차례로
+처리한다면 N개의 작업을 처리한 후 캐시메모리의 상태를 가장 최근 사용된
+작업부터 차례대로 출력하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer = [0,0,0,0,0];
+
+  for(let x of arr){
+    if(answer.indexOf(x) === -1){
+      for( let i = answer.length-1; i > 0 ; i--){
+        answer[i] = answer[i-1];
+      }
+      answer[0] = x;
+    }else {
+      let idx = answer.indexOf(x);
+      let temp = answer[idx];
+      for ( let j = idx; j > 0 ; j--)
+      {
+        answer[j] = answer[j-1];
+      } 
+      answer[0] = temp;
+    }  
+  }
+  return answer;
+}
+let arr = [1,2,3,2,6,2,3,5,7]
+console.log(solution(arr))
+```
+
+<br>
+
+ ### ⁉️ Alternative Solution
+ 
+  ```javascript
+function solution(size, arr){
+  let answer = Array.from({length:size}, () =>0);
+  arr.forEach(x => {
+      let pos = -1;
+      for(let i=0; i < size; i++) if(x===answer[i]) pos=i;
+      if(pos===-1){
+        for(let i=size-1; i>=1; i--){
+          answer[i] = answer[i-1];
+        }
+      }
+      else{
+        for(let i=pos; i>=1; i--){
+          answer[i] = answer[i-1];
+        }
+      }
+      answer[0] = x;
+  });
+
+  return answer;
+}
+let arr = [1,2,3,2,6,2,3,5,7];
+console.log(solution(5, arr));
+```
+<br>
+
+ ### ⁉️ Alternative Solution2
+ 
+  ```javascript
+function solution(size, arr){
+  let answer = [];
+  arr.forEach(x => {
+      let pos = -1;
+      for(let i=0; i < size; i++) if(x===answer[i]) pos=i;
+      if(pos===-1){
+        answer.unshift(x);
+        if(answer.length>size) answer.pop();
+      }
+      else{
+        answer.splice(pos, 1);
+        answer.unshift(x);
+      }
+  });
+  return answer;
+}
+let arr = [1,2,3,2,6,2,3,5,7];
+console.log(solution(5, arr));
+```
+
+<br>
+
+ <pre>
+ 💬  내가 생각해낸 방법은 일단 answer라는 배열을 만들어 0 5개로
+ 초기화를 해놓고, for of 로 입력 배열을 하나씩 가져와 answer라는 
+ 배열에 해당 x값이 없으면 for문을 돌려 answer[i] = answer[i-1];
+ 이런식으로 값들을 오른쪽으로 shift해서 값을 업데이트하였고, 끝나면 [0]
+ 번 인덱스에 x값을 넣고 마무리하면서, 그 x값이 answer 배열안에 있는 요소라면 
+ indexOf(x)로 나온 인덱스값까지 값을 shift하고 똑같이 [0]에 그 요소를 넣어주게끔 구현하였다. 
+
+ 선생님도 전체적인 컨셉은 비슷하셨지만, 일단 answer를 배열로 선언할때
+ Array.from이라는 메소드로 length를 정하고 0을 채웠고, pos라는 변수에 -1를 초기화하고,
+ answer 배열안에 forEach로 돌려서 나온 x값이 있는지 확인 후 있다면, 그 해닥 인덱스값을 pos에 넣고 
+ 인덱스가 처음 값 -1라면 배열안에 x가 없는거니 모든 값들을 오른쪽으로 shift시키고, 있다면 해당 인덱스까지 
+ 오른쪽으로 shift시킨다. 그리고 다 끝나고 나서는 인덱스 [0]자리에 x값을 넣는다. 
+
+ 그리고 선생님은 다른 방법으로 솔루션을 보여주셨는데, 위랑 forEach로
+ 하는 건 똑같았으나, 값들을 shift하지않고, unshift(x)를 통해서 배열 
+ 첫번째 인덱스에 값을 넣어주고 처음에 정해준 length가 넘으면 pop()으로 
+ 배열 끝을 날려주는 식으로 하셨다. 좀 더 단순한 방법이였달까?
+  </pre> 
+
+</div>
+</details>
+ 
+ <details>
+<summary>7_6 장난꾸러기 현수</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+선생님은 반 학생들에게 반 번호를 정해 주기 위해 운동장에 반 학생들을 
+키가 가장 작은 학 생부터 일렬로 키순으로 세웠습니다. 제일 앞에 가장 
+작은 학생부터 반 번호를 1번부터 N번까 지 부여합니다. 현수는 짝꿍보다
+키가 큽니다. 그런데 현수가 앞 번호를 받고 싶어 짝꿍과 자리를 바꿨습니다. 
+선생님은 이 사실을 모르고 학생들에게 서있는 순서대로 번호를 부여했습니다.
+현수와 짝꿍이 자리를 바꾼 반 학생들의 일렬로 서있는 키 정보가 주어질 때
+현수가 받은 번 호와 현수 짝꿍이 받은 번호를 차례로 출력하는 프로그램을 
+작성하세요.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer= [];
+  let sortArr = arr.slice();
+  sortArr.sort((a,b) => (a-b));
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i] !== sortArr[i]) answer.push(i+1);
+  }
+  return answer;
+}
+let arr = [120,125, 152, 130, 135, 135, 143, 127, 160]
+console.log(solution(arr));
+```
+
+<br>
+
+ <pre>
+ 💬  더 생각을 해보면 무식하게 코드를 짜 볼수 있을거같았지만, 깨끗하게
+ 한번에 하고 싶어서, 일단 선생님의 솔루션을 먼저 보았다. 일단 선생님은
+ 바뀐 자리의 인덱스를 알아내야하기때문에 오름차순으로 정렬한 배열 먼저 
+ 만들었는데, sortArr = arr.slice(); 이런식으로 입력받은 배열을
+ slice 쳐서 새로운 배열로 만들어주었다. 그리고 인덱스
+ 자리를 바꿧다는 입력 배열을 비교해서 인덱스를 가져오고 출력한다. 
+  </pre> 
+
+</div>
+</details>
+
+ <details>
+<summary>7_7 좌표 정렬</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+N개의 평면상의 좌표(x, y)가 주어지면 모든 좌표를 오름차순으로 정렬하는
+프로그램을 작성하 세요. 정렬기준은 먼저 x값의 의해서 정렬하고, x값이
+같을 경우 y값에 의해 정렬합니다.
+ </pre>
+
+<br>
+ 
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr){
+  let answer =  arr;
+  arr.sort((a, b) => {
+    if(a[0] === b[0]) return a[1]-b[1];
+    else return a[0] - b[0];
+  });
+  return answer;
+}
+let arr = [[2,7], [1,3], [1,2], [2,5], [3,6]]
+console.log(solution(arr))
+```
+
+<br>
+
+ <pre>
+ 💬  처음 입력받는 arr를 answer로 shallow copy(얕은복사)를 해주고,
+ sort()로 정렬을 해주면되는데, 첫번째 인자가 서로 같다면 두번째 인자로
+ 비교해서 정렬을 해주면 된다. 
+  </pre> 
+
+</div>
+</details>
+
+
 
  
 
