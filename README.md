@@ -3791,6 +3791,88 @@ console.log(solution(arr));
 </div>
 </details>
 
+<details>
+<summary>7_10 이분검색</summary>
+<div markdown="1">       
+<br>
+ 
+ ### ❓ Question
+ 
+ <pre> 
+임의의 N개의 숫자가 입력으로 주어집니다. N개의 수를 오름차순으로 정렬한 
+다음 N개의 수 중 한 개의 수인 M이 주어지면 이분검색으로 M이 정렬된 상태에서 
+몇 번째에 있는지 구하는 프로그램을 작성하세요. 단 중복값은 존재하지 않습니다.
+ </pre>
+<br>
+
+### 📚 입력설명 및 출력설명
+<pre>
+첫 줄에 한 줄에 자연수 N(3<=N<=1,000,000)과 M이 주어집니다.
+두 번째 줄에 N개의 수가 공백을 사이에 두고 주어집니다.
+<hr/>
+  첫 줄에 정렬 후 M의 값의 위치 번호를 출력한다.
+</pre>
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+<pre>
+8 32
+23 87 65 12 57 32 99 81
+<hr/>
+3
+</pre>
+
+
+ <br>
+
+ ### ‼️ Solution
+ 
+ ```javascript
+function solution(arr, val){
+  let answer;
+  let lt = 0, rt = arr.length-1;
+  arr.sort((a,b) => a-b);
+  while(lt<=rt){
+    let mid = parseInt((lt+rt)/2)
+    if(arr[mid] === val){
+      answer = mid+1
+      break;
+    }
+    else if(arr[mid] > val) rt = mid-1;
+    else lt = mid+1;
+  }
+  return answer
+}
+let arr = [23,87,65,12,57,32,99,81];
+let val = 32
+console.log(solution(arr,val))
+```
+
+<br>
+
+ <pre>
+ 💬  일단 내가 해본 방식대로도 있지만, 이분검색을 안해본 나로써 강의를 보고
+    감을 잡아야했다. 
+
+    1. lt와 rt를 입력 배열의 첫,끝 인덱스로 초기화 및 선언을 해준다. 
+    2. 정렬이 안되어 있으니 sort()로 정렬을 시켜준다.
+    3. while(lt<=rt){} 이 코드안에서 이분검색을 하면되는데 그냥 외우래
+    4. lt와 rt를 더하고 2로 나누어 이분을 해주고 그것을 mid라는 변수에 
+       넣어준다. 근데 정수가 안나올수 있기때문에 parseInt로 반내림을 해줌
+    5. 조건이 총 3개인데, 
+       if (배열[mid]가 우리가 찾고 있는 target 값과 같다면)
+         그게 정답이니 answer에 넣어주고 break;하여 나와준다.
+       else if (배열[mid]가 우리가 찾고 있는 target 값보다 높다면)
+         반으로 나눈 인덱스중 우측 요소들은 해당안되니까 rt를 mid-1 인덱스
+         값으로 업데이트해준다.
+       else 
+         배열[mid]가 더 낮으니 반대로 lt를 mid+1 인덱스값으로 업데이트.
+    6. 계속 반복되면서 결국 첫번째 조건에 걸리면 나오는 것이다. 
+  </pre> 
+
+</div>
+</details>
 
 
 
