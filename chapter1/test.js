@@ -1,18 +1,32 @@
-function solution(n, arr){
-  let answer, max=Number.MIN_SAFE_INTEGER;
-  for(let x of arr){
-      let sum=x.toString().split('').reduce((a, b)=>a+Number(b), 0);
-      console.log(sum);
-      // if(sum>max){
-      //     max=sum;
-      //     answer=x;
-      // }
-      // else if(sum===max){
-      //     if(x>answer) answer=x;
-      // }
+function count(songs, capacity){
+  let cnt=1, sum=0;
+  for(let x of songs){
+    if(sum+x>capacity){
+      cnt++
+      sum = x;
+    }else sum+=x;
   }
-  return answer;
+  console.log(cnt, sum);
+  return cnt;
 }
 
-let arr=[128, 460, 603, 40, 521, 137, 123];
-console.log(solution(7, arr));
+function solution(m, songs){
+  let answer;
+  let lt = Math.max(...songs)
+  console.log(lt);
+  let rt = songs.reduce((a,b) => a+b, 0);
+  console.log(rt);
+  while(lt<=rt){
+    let mid = parseInt((lt+rt)/2);
+    if(count(songs,mid) <= m) 
+    {answer = mid;
+      rt = mid-1;
+    }
+    else 
+      lt = mid+1;
+  }
+  
+  return answer;
+}
+let arr = [1,2,3,4,5,6,7,8,9];
+console.log(solution(3, arr));

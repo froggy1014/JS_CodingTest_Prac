@@ -1,89 +1,91 @@
 <details>
-<summary>4_2 뒤집은 소수</summary>
+<summary>7_11 뮤직비디오(결정알고리즘)</summary>
 <div markdown="1">       
 <br>
  
  ### ❓ Question
  
- <pre>N개의 자연수가 입력되면 각 자연수를 뒤집은 후 그 뒤집은 수가 소수이면 그
-  소수를 출력하 는 프로그램을 작성하세요. 예를 들어 32를 뒤집으면 23이고, 23은
-  소수이다. 그러면 23을 출 력한다. 단 910를 뒤집으면 19로 숫자화 해야 한다. 첫 자리부터의 연속된 0은 무시한다.
+ <pre> 
+지니레코드에서는 불세출의 가수 조영필의 라이브 동영상을 DVD로 만들어 판매하려 한다.
+DVD에는 총 N개의 곡이 들어가는데, DVD에 녹화할 때에는 라이브에서의 순서가 그대로 유지
+되어야 한다. 
+순서가 바뀌는 것을 우리의 가수 조영필씨가 매우 싫어한다. 
+즉, 1번 노래와 5번 노래를 같은 DVD에 녹화하기 위해서는 1번과 5번 사이의 모든 노래도 같은 DVD에 녹화해야한다. 
+또한 한 노래를 쪼개서 두 개의 DVD에 녹화하면 안된다.
+지니레코드 입장에서는 이 DVD가 팔릴 것인지 확신할 수 없기 때문에 이 사업에 낭비되는
+DVD를 가급적 줄이려고 한다. 
+고민 끝에 지니레코드는 M개의 DVD에 모든 동영상을 녹화하기로 하였다. 
+이 때 DVD의 크기(녹화 가능한 길이)를 최소로 하려고 한다. 그리고 M개의 DVD는
+모두 같은 크기여야 제조원가가 적게 들기 때문에 꼭 같은 크기로 해야 한다.
  </pre>
+<br>
+
+### 📚 입력설명 및 출력설명
+<pre>
+첫째 줄에 자연수 N(1≤N≤1,000), M(1≤M≤N)이 주어진다. 다음 줄에는 조영필이 라이브에서
+부른 순서대로 부른 곡의 길이가 분 단위로(자연수) 주어진다. 부른 곡의 길이는 10,000분을
+넘지 않는다고 가정하자.
+<hr/>
+  첫 번째 줄부터 DVD의 최소 용량 크기를 출력하세요.
+</pre>
 
 <br>
- 
+
+### 🗣 입력예제 & 출력예제
+<pre>
+9 3
+1 2 3 4 5 6 7 8 9
+<hr/>
+17
+</pre>
+
+
+ <br>
+
  ### ‼️ Solution
  
  ```javascript
-function isPrime(val){
-  if(val===1)return false;
-  for(let i = 2; i <= parseInt(val/2); i++){
-    if(val%i===0) return false;
+function count(songs, capacity){
+  let cnt=1, sum=0;
+  for(let x of songs){
+    if(sum+x>capacity){
+      cnt++
+      sum = x;
+    }else sum+=x;
   }
-  return true;
+  return cnt;
 }
 
-function solution(arr){
-  let answer = [];
-  for(let x of arr){
-    let res=0;
-    while(x){
-      let t=x%10
-      res=res*10+t
-      x=parseInt(x/10);
+function solution(m, songs){
+  let answer;
+  let lt = Math.max(...songs)
+  let rt = songs.reduce((a,b) => a+b, 0);
+  while(lt<=rt){
+    let mid = parseInt((lt+rt)/2);
+    if(count(songs,mid) <= m) 
+    {answer = mid;
+      rt = mid-1;
     }
-    if (isPrime(res)) answer.push(res);
+    else 
+      lt = mid+1;
   }
-return answer;
+  return answer;
 }
-const arr = [32,55,62,20,250,370,200,30,100];
-console.log(solution(arr));       
- ```
- 
- <br>
-
-  ### ⁉️ Alternative Solution
- 
-  ```javascript
-function isPrime(val){
-  if(val===1)return false;
-  for(let i = 2; i <= parseInt(val/2); i++){
-    if(val%i===0) return false;
-  }
-  return true;
-}
-
-function solution(arr){
-  let answer = [];
-  for(let x of arr)
-  {
-    let res=Number(x.toString().split('').reverse().join(''));
-    if (isPrime(res)) answer.push(res);
-  }
-return answer;
-}
-const arr = [32,55,62,20,250,370,200,30,100];
-console.log(solution(arr));       
+let arr = [1,2,3,4,5,6,7,8,9];
+console.log(solution(3, arr));
 ```
- 
+
 <br>
 
  <pre>
- 💬  일단 선생님의 첫번째 솔루션은 문자열로바꿔서 하는 형태가 아닌 수학적으로
-    접근하여, 정수 타입은 그대로 진행했다. for of를 통해서 문자열에서 숫자를 하나씩 가져온다. 그리고 하나씩 가져온 정수를 while()문을 열어서 조건을
-    인자로 넣는다. 그렇게 let t=인자%10로 t에 일의 자리를 넣어준다. 
-    그리고 0으로 먼저 초기화되어있었던 res에 res*10+t를하는데 그러면 
-    res는 일의자리를 가져간다. 그 다음 x=parseInt(x/10) 아까 남아있던
-    몫을 마저 10으로 나눠준다. 그러면 x는 뒤집어질때에 일의 자리 숫자가 된다.
-    다시 while문이 돌아와 아까 그 x가 1이하 값이 되면 escape한다음 소수 인지 검사하는데, 
-    해당 검사하는 것을 함수로 따로 만들어 놓는다, 여기서 소수체크하는 방법을 알았는데, 해당 정수를
-    2 ~ 정수의 절반 까지 모든 수를 나머지 연산을 해보고 다 0이 한번이라도 나온다면 소수가 아닌것이다.
+ 💬  결정알고리즘 정말 머리아프기 시작한다... 
+    이 문제는 일단 모든 곡들을 DVD안에 담는건데 DVD가 총 몇장을 만들건지
+    주어진다. DVD 3장안에 전 수록곡들을 담고, 그 3장에 다 담길때의 최소 용량 크기를 출력하는 문제이다. 
 
-
-    다른 솔루션은 한번 문자열 형태로 바꾼다음에 뒤집어서 모든 문자열을 바꿔놓고 소수를 체크해보는 방법이다.
-    toString().split('').reverse().join(''); 
-    </pre>
-
+    
+    
+       
+  </pre> 
 
 </div>
 </details>
