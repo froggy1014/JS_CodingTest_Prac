@@ -5,10 +5,12 @@ function solution(arr) {
     t_Line.push([x[0], "s"]);
     t_Line.push([x[1], "e"]);
   }
+  console.log(t_Line);
   t_Line.sort((a, b) => {
     if (a[0] === b[0]) return a[1].charCodeAt() - b[1].charCodeAt();
     else return a[0] - b[0];
   });
+  console.log(t_Line)
   let cnt = 0;
   for (let x of t_Line) {
     if (x[1] === "s") cnt++;
@@ -19,11 +21,5 @@ function solution(arr) {
   }
   return answer;
 }
-let arr = [
-  [14, 18],
-  [12, 15],
-  [15, 20],
-  [20, 30],
-  [5, 15],
-];7,
+let arr=[[14, 18], [12, 15], [15, 20], [20, 30], [5, 14]];
 console.log(solution(arr));

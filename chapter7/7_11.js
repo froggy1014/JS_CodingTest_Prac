@@ -9,14 +9,13 @@ function count(songs, capacity){
   return cnt;
 }
 
-
 function solution(m, songs){
   let answer;
   let lt = Math.max(...songs)
   let rt = songs.reduce((a,b) => a+b, 0);
   while(lt<=rt){
     let mid = parseInt((lt+rt)/2);
-    if(count(songs,mid) <= m)
+    if(count(songs,mid) <= m) 
     {answer = mid;
       rt = mid-1;
     }
@@ -24,7 +23,6 @@ function solution(m, songs){
       lt = mid+1;
   }
   
-
   return answer;
 }
 let arr = [1,2,3,4,5,6,7,8,9];
