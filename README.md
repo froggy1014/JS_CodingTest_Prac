@@ -4086,4 +4086,157 @@ console.log(solution(3, arr))
   </pre> 
 
 </div>
+</details>
+ 
+ <br>
+ 
+ ### 챕터 8 - 재귀함수와 완전탐색(깊이우선탐색, DFS)
+ 
+ <br>
+ 
+<details>
+<summary>8_1 재귀함수와 스택프레임</summary>
+<div markdown="1">       
+<br>
 
+
+ ### ❓ Question
+
+ <pre> 
+자연수 N이 입력되면 재귀함수를 이용하여 1부터 N까지를 출력하는 프로그램을 작성하세요.
+ </pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄은 정수 N(3<=N<=10)이 입력된다.
+<hr/>
+첫째 줄에 출력한다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+3
+<hr/>
+1 2 3 
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n){
+    function DFS(L){
+      if(L==0) return; 
+      else{
+        DFS(L-1)
+        console.log(L);
+      }
+    }
+    DFS(n)
+}
+solution(3);
+ ```
+
+<br>
+
+ <pre>
+ 💬  인터뷰에서도 많이 물어보고 앞으로 할 알고리즘에 많이 나오기때문에 확실히 이해하고 넘어가야겠다.
+
+
+    1. solution 함수를 호출 
+    
+    2. solution 함수의 내부 함수인 DFS(n) 호출
+    
+    3. DFS 함수내에서 받아온 파라미터 값이 == 0이면 return; 아니면 DFS(L-1) 호출하는데, 
+    처음 호출할때 파라미터가 3이였으니까 DFS(L-1)을 계속 호출하는데 이때 Stack Frame에 함수의 정보들이 저장된다. 
+    이때 그 아랫줄에 console.log(L)은 실행하지 않고 재귀하게 된다.
+</pre>
+
+  ```mermaid
+ classDiagram
+  direction LR
+  
+  class DFS{
+  매개변수
+  복귀주소
+  지역변수
+  }
+  
+  class StackFrame1 {
+    DFS(3)
+  }
+  class StackFrame2{
+		DFS(2)
+    DFS(3)
+  }
+  class StackFrame3{
+    DFS(1)
+    DFS(2)
+    DFS(3)
+  }
+  StackFrame1 --> StackFrame2 : stack
+  StackFrame2 --> StackFrame3 : stack
+  ```
+<pre>
+4. DFS(0)이 되는 순간 return; 이 되게되고, 그때 StackFrame에 쌓여있던 함수들이 복귀주소 즉 호출한 코드 라인으로 복귀를 하고 
+   아까마저 실행하지 못했던, console.log(L); 을 실행하고, 해당 함수는 pop()이 되고 결국 우리가 바랬던 출력이 나오게 된다.
+</pre>
+ 
+   ```mermaid
+    classDiagram
+     direction LR
+     
+     class DFS{
+     매개변수
+     복귀주소
+     지역변수
+     }
+     
+     class StackFrame5 {
+       DFS(3)
+     }
+     class StackFrame4{
+   		DFS(2)
+       DFS(3)
+     }
+     class StackFrame3{
+       DFS(1)
+       DFS(2)
+       DFS(3)
+     }
+     
+     StackFrame3 --> StackFrame4 : pop()
+     StackFrame4 --> StackFrame5 : pop()
+   ```
+
+
+```javascript
+// 출력결과
+1
+2
+3
+```
+<pre>
+5.  하지만 여기서 console.log()를 재귀하기 후가 아닌 전으로 먼저 실행되게 해놓았다면 실행결과는 반대로 나옵니다.
+</pre> 
+ 
+   ```javascript
+ // 출력결과
+   3
+   2
+   1
+   ```
+
+
+ 
+  
