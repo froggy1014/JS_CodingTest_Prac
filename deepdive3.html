@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  smtitle{
+    color:rgb(55, 128, 150);
+    font-size:30px;
+    font-weight: bold;
+    margin:30px;
+  }
+  summary{
+      width:80%;
+      background-color: aliceblue;
+      text-align: center;
+      line-height: 1.5em;
+      padding: 10px;
+      font-size:18px;
+    }
+
+
+    var{
+      color:rgb(223, 64, 223);
+      margin-right: 10px;
+    }
+
+    white{
+      color: white;
+    }
+
+    norm{
+      color:orange;
+    }
+
+    wrapper {
+      width:100%; 
+      height:100%; 
+      display:flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center;
+    }
+    keyword{
+      background-color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    infotitle{
+      justify-content: left;
+      align-items: left;
+      margin:10px;
+      font-size:24px;
+      color: rgb(44, 150, 44)
+    }
+
+    prebox{
+      background-color:rgb(221, 221, 221);
+      width:80%;
+      padding: 10px;
+    }
+</style>
+
+<body style="width:100%; height:100%; display:flex; flex-direction: column; justify-content: center; align-items: center;">
+  <wrapper>
+    <h1>변수 (Variable)</h1>
+  
+  
+    <smtitle>변수란 무엇인가? 왜 필요한가?</smtitle>
+    <summary>
+      자바스크립트 엔진이 자바스크립트 코드를 계산하려면 먼저 기호의 의미를 알고 있어야하며, 식의 의미도 해석할 수 있어야 한다. 사람은 계산과 기억을 모두 두뇌에서 하지만 컴퓨터는 연산과 기억을 수행하는 부품이 나눠져 있다. 컴퓨터는 CPU를 사용해 연산하고, 메모리를 사용해 데이터를 기억한다. 메모리는 데이터를 저장할 수 있는 셀의 집합체이다. 셀은 고유의 메모리 주소를 갖는데, 메모리 주소는 메모리 공간의 위치를 나타낸다.
+    </summary>
+  <pre style="width:80%;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>10+20;</code></pre>
+    <summary>
+      위에 코드처럼 연산을 한다면 만약에 변수를 선언안해준다면, 40이라는 값이 나오긴
+      할테지만 재사용을 못할 것이다. 재사용을 하기위해서는 임의로 결과값을 저장한 메모리 공간에 접근해야하는데 방법이 없다.
+    </summary>
+  <pre style="width:80%;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>var result = 20+20;</code></pre>
+    <summary>
+      만약 실수로 운영체제가 사용하고 있는 값을 변경하면 시스템을 멈추게 하는 치명적인 오류가 발생할수도 있다. 따라서 <mark>자바스크립트는 개발자의 직접적인 메모리 제어를 허용하지 않는다.</mark><keyword> "변수는 하나의 값을 저장하기 위해 확보한 메모리 공간 자체 또는 그 메모리 공간을 식별하기 위해 붙인 이름을 말한다." </keyword> 변수에 값을 저장하는 것을 <keyword>할당</keyword>이라 하고, 변수에 저장된 값을 읽어 들이는 것을 <keyword>참조</keyword>라고한다.
+    </summary>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+    <smtitle>
+      식별자
+    </smtitle>
+      <summary> 
+        <keyword>식별자는 어떤 값을 구별해서 식별할 수 있는 고유한 이름을 말한다.</keyword><br>식별자는 값이 저장되어 있는 메로리 주소와 매핑 관계를 맺으며, 매핑 정보도 메모리에 저장되어야 한다. 식별자는 값이 아닌 메모리 주소를 기억하고 있다.
+      </summary>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+      <smtitle>
+        변수 선언
+      </smtitle>
+
+      <summary>
+        <keyword>변수 선언</keyword>이란 변수를 생성하는 것을 말하는데 변수를 사용하기 앞서 선언이 반드시 필요하다. var, let const 키워드를 사용한다. <mark>변수 선언에 의해 확보된 메모리 공간은 비어 있을 것으로 생각할 수 있으나 확보된 메모리 공간에는 자바스크립트 엔진에 의해 undefined라는 값이 암묵적으로 할당되어 초기화</mark>된다. 자바스크립트의 독특한 특징중에 하나다.
+        <div style="background-color: white; margin: 15px 0;">
+          자바스크립트 엔진 Process<br>
+          <li style="font-size:16px;">선언단계 : 변수이름을 등록해서 자바스크립트 엔진에 변수 존재 알린다.</li>
+          <li style="font-size:16px;">초기화 단계 : 값을 저장하기 위한 메모리 공간을 확보하고 암묵적으로 indefined를 할당 및 초기화</li>
+        </div>
+        초기화 단계를 거치지 않으면 확보된 메모리 공간에는 이전에 다른 애플리케이션에서 사용했던 값이 남아 있을수 있는데 이것을 <keyword>쓰레기 값</keyword>이라고 한다. <keyword>var</keyword>는 암묵적으로 초기화를 진행하므로 안전하다.
+      </summary>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+      <smtitle>
+        변수 선언의 실행 시점과 변수 호이스팅
+      </smtitle>
+     <pre style="width:80%;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>console.log(score); // undefined 
+     <br>var score; // 변수 선언문</code></pre>
+      
+      <summary>
+        위 코드를 실행하게 되면 변수가 선언되기전에 변수 참조가 실행하는데, 참조 에러가 발생해야 함에도 불구하고, undefined가 출력된다. 변수선언이 소스코드를 한 줄씩 순차적으로 실행하기에 앞서 먼저 소스코드의 평가과정을 거치면서 소스코드를 실행하기 위한 준비를 한다. <mark>자바스크립트 엔진은 변수 선언을 포함한 모든 선언문을 소스코드에서 찾아내 먼저 실행한다.</mark>자바스크립트 엔진은 변수 선언이 소스코드의 어디에 있든 상관없이 다른 코드보다 먼저 실행한다. <keyword><mark>변수 선언문이 코드의 선두로 끌어 올려진 것처럼 동작하는 자바스크립트 고유의 특징을 변수 호이스팅이라 한다.</mark></keyword>
+      </summary>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+      <smtitle>값의 할당</smtitle>
+      <summary>변수에 값을 할당 할 때는 연산자를 =를 사용하는데, 우변의 값을 좌변 변수에 할당을 한다.</summary>
+		<pre style="width:80%;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>var score; // 변수선언 
+score = 80; //값의 할당
+        <br>var score = 80; // 변수 선언과 값의 할당</code></pre>
+      <summary>자바스크립트 엔진은 변수 선언과 값의 할당을 하나의 문으로 단축 표현해도 변수 선언과 값의 할당을 2개의 문으로 나누어 각각 실행한다. 하지만 이때 변수선언과 값의 할당의 실행 시점이 다르다. 변수 선언은 변수 호이스팅라는 특징 때문에 먼저 실행되지만 값의 할당을 런타임에 실행된다.</summary>
+  	<pre style="width:80%;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>console.log(score); //undefined
+<br>var score = 80; //변수 선언과 값의 할당
+        <br>console.log(score); // 80</code></pre>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+      <smtitle>값의 재할당</smtitle>
+      <summary><mark>재할당이란 이미 값이 할당되어 있는 변수에 새로운 값을 또다시 할당하는 것을 말하는데,</mark> 변수는 선언과 동시에 <keyword>undefined</keyword>로 초기화 되기때문에 엄밀히 변수 선언도 재할당이라고 할 수 있다. 값을 재할당할 수 없는 변수는 상수라 한다. 또한 변수에 값을 재할당하면 저장되어 있던 메모리 공간을 지우고 새로운 메모리 공간을 확보하고 값을 저장한다. </summary>
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+      <smtitle>식별자 네이밍 규칙</smtitle>
+      <summary>
+        식별자는 네이밍 규칙을 준수해야한다. 
+        <div style="background-color: white; margin:10px; font-size : 15px; text-align: left;">
+          <li>식별자는 특수문자 제외한 문자,숫자, 언더스코어, 달러만 사용가능</li>
+          <li>특수문자를 제외한 문자, 언더스코어, 달러 기호로 시작해야하고, 숫자시작은 허용치 않는다.</li>
+          <li>예약어는 식별자로 사용할 수 없다.</li>
+        </div>
+        ES5부터 식별자를 만들 때 한글이나 일본어 도 사용할 수 있지만 권장하지 않고, 대소문자를 구별하기 때문에 별개로 선언된다. <keyword>네이밍 컨벤션</keyword>은 하나 이상의 영어 단어로 구성된 식별자를 만들 때 가독성 좋게 단어를 한눈에 규정한 명명 규칙이다. 
+         <pre style="width:80%; text-align:left;" id="code_1655493942454" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>//카멜 케이스(camelCase)
+var firstName;
+
+//스네이크 케이스(snake_case)
+var first_name;
+
+//파스칼 케이스(PascalCase)
+var FirstName;
+
+//헝가리언 케이스(typeHungarianCase)
+var strFirstName; // tyoe + identifier
+var $elem = document.getElementById('myId'); // DOM 노드
+var observable$ = fromEvent(document, 'click'); //RxJS 옵저버블
+</code></pre>
+        일반적으로 카멜 케이스를 사용하고, 생성자 함수, 클래스의 이름에는 파스칼 케이스를 사용한다. ECMAScript 사양에 정의되어 있는 객체와 함수들도 위에 두 케이스를 사용한다. 
+      </summary>
+
+
+
+  <div style="border: 1px solid grey; width:90%; margin:20px;"></div>
+
+
+
+      
+      <div style="display:flex; flex-direction: column; width:80%;margin-top:20px">
+        <infotitle>💡 ES5 vs ES6</infotitle></div>
+        <prebox>
+          var 키워드는 여러 단점이 있다. 블록 레벨 스코프를 지원하지 않고, 함수 레벨 스코프를 지원하는 건데 이로 인해 의도치 않게 <mark>전역변수가 선언되어 심각한 부작용이 발생</mark>하기도 한다. ES6애서 let과 const 키워드를 도입한 이유는 var 키워드의 여러 단점을 보완하기 위해서다. ES6은 기본적으로 하위 호환성을 지키면서 ES5의 기반 위에 새로운 기능을 추가한 것이다. ES6는 ES5의 상위 집합이다. 
+        </prebox>
+
+        <div style="display:flex; flex-direction: column; width:80%;margin-top:20px">
+          <infotitle>💡 Undefined</infotitle></div>
+          <prebox>
+            자바스크립트에서 제공하는 원시타입의 값
+          </prebox>
+
+          <div style="display:flex; flex-direction: column; width:80%;margin-top:20px">
+            <infotitle>💡 변수 이름은 어디에 등록되는가?</infotitle></div>
+            <prebox>
+              <mark>변수 이름을 비롯한 모든 식별자는 실행 컨텍스트에 등록된다.</mark> 실행 컨텍스트는 자바스크립트 엔진이 소스코드를 평가하고 실행하기 위해 필요한 환경을 제공하고 코드의 실행 결과를 실제로 관리하는 영역이다. 변수 이름과 변수 값은 실행 컨텍스트 내에 키/값 형식인 객체로 등록되어 관리된다.
+            </prebox>
+
+            <div style="display:flex; flex-direction: column; width:80%;margin-top:20px">
+              <infotitle>💡 가비지 콜렉터</infotitle></div>
+              <prebox>
+                <keyword>가비지 콜렉터</keyword>는 애플리케이션이 할당한 메모리 공간을 주기적으로 검사하여 더 이상 사용하지 않는 메모리를 해제하는 기능을 말하는데, <mark>자바스크립트는 <keyword>가비지 콜렉터</keyword>를 내장하고 있는 매니지드 언어로서 메모리 누수를 방지한다.</mark>
+              </prebox>
+
+              <div style="display:flex; flex-direction: column; width:80%;margin-top:20px">
+                <infotitle>💡 Unmanaged Language 🆚 Managed Language</infotitle></div>
+                <prebox>
+                  C언어같은 언매니지드 언어는 개발자가 명시적으로 메모리를 할당하고 해제하기 위해 malloc()과 free()같은 저수준 메모리 제어 기능을 제공한다. 개발자의 역량에 따라 최적의 성능을 확보할 수 있지만 치명적 오류를 생산할 가능성이 있다. 그에 반해 <mark>자바스크립트같은 매니지드 언어는 개발자의 직접적인 메모리 제어를 허용하지 않고, 가비지 콜렉터가 수행하여 일정한 생산성을 확보할 수 있다</mark>는 장점이 있지만 성능 면에서 어느정도 손실을 감수할 수 밖에 없다.
+                </prebox>
+
+  </wrapper>
+
+
+</body>
+</html>

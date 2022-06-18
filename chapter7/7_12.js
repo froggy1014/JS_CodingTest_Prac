@@ -4,7 +4,9 @@ function count(stable, dist){
     if(stable[i]-ep >= dist){
       cnt++;
       ep=stable[i];
+
     }
+    
   }
   return cnt;
 }
