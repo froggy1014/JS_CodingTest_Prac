@@ -4226,16 +4226,99 @@ solution(3);
 2
 3
 ```
+	
 <pre>
 5.  하지만 여기서 console.log()를 재귀하기 후가 아닌 전으로 먼저 실행되게 해놓았다면 실행결과는 반대로 나옵니다.
 </pre> 
+	
  
    ```javascript
  // 출력결과
    3
    2
    1
-   ```
+ ```
+</div>
+</details>
+	
+<details>
+<summary>8_2 재귀함수를 이용한 이진수 출력</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre> 
+10진수 N이 입력되면 2진수로 변환하여 출력하는 프로그램을 작성하세요. 단 재귀함수를 이용
+해서 출력해야 합니다.
+ </pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 10진수 N(1<=N<=1,000)이 주어집니다.
+<hr/>
+첫 번째 줄에 이진수를 출력하세요.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+11
+<hr/>
+1011
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n){
+  let answer="";
+  function DFS(n){
+      if(n===0) return;
+      else {
+        DFS(parseInt(n/2));
+        answer+=(n%2);
+      }
+  }
+  DFS(n);
+  return answer;
+}
+console.log(solution(11))
+ ```
+
+<br>
+
+ <pre>
+ 💬  while문이나 다른 방법을 사용하면 쉽게 구현이 가능하지만 재귀함수를 사용하라고 하였으니
+    한번 풀어보면 
+    1. answer를 문자열로 선언하고, DFS(n) 재귀함수가 호출되고 내부 함수인 DFS가 호출된다.
+    
+    2. 매개변수가 0이 될 때까지 재귀를 반복하는데, DFS(parseInt(n/2))으로 2로 계속 나누고,
+       매개변수가 0이 된 순간 return; 재귀함수가 멈춘다. 
+
+    3. 그러고 나면 StackFrame에 쌓여있던 함수들이 복귀주소로 돌아가면서 바로 아래 있던 
+       answer += (n%2); 실행해주면서, 위에 쌓여있던 함수의 매개변수 값을 타겟으로 
+       나머지 연산하여 answer에 더해주게된다.
+
+    4. answer를 문자열로 먼저 선언을 해서 더해주기만해도 문자열로 쭉 나란히 더해진다.
+  </pre>
+
+</div>
+</details>
+
+	
+
 
 
  
