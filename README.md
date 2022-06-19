@@ -4316,8 +4316,130 @@ console.log(solution(11))
 
 </div>
 </details>
-
 	
+<details>
+<summary>8_3 이진트리 순회(깊이우선탐색)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre> 
+  아래 그림과 같은 이진트리를 전위순회와 후위순회를 연습해보세요.
+ </pre>
+
+```mermaid
+stateDiagram-v2
+    1 --> 2
+    2 --> 4
+    2 --> 5
+    1 --> 3
+    3 --> 6
+    3 --> 7
+  ``` 
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+전위순회 출력 : 1 2 4 5 3 6 7
+중위순회 출력 : 4 2 5 1 6 3 7
+후위순회 출력 : 4 5 2 6 7 3 1
+</pre>
+
+
+<br>
+
+<!-- ### 🗣 입력예제 & 출력예제
+
+<pre>
+11
+<hr/>
+1011
+</pre>
+
+
+
+ <br> -->
+
+ ### ‼️ Solution
+
+ ```javascript
+// 전위순회 출력
+function solution(v){
+  let answer;
+  function DFS(v){
+    if(v>7) return;
+    else{
+      console.log(v);
+      DFS(v*2);
+      DFS(v*2+1);
+    }
+  }
+  DFS(v);
+  return answer;
+}
+console.log(solution(1));
+ ```
+
+
+ ```javascript
+// 중위순회 출력
+function solution(v){
+  let answer;
+  function DFS(v){
+    if(v>7) return;
+    else{
+      DFS(v*2);
+      console.log(v);
+      DFS(v*2+1);
+    }
+  }
+  DFS(v);
+  return answer;
+}
+console.log(solution(1));
+ ```
+
+
+ ```javascript
+// 후위순회 출력
+function solution(v){
+  let answer;
+  function DFS(v){
+    if(v>7) return;
+    else{
+      DFS(v*2);
+      DFS(v*2+1);
+      console.log(v);
+    }
+  }
+  DFS(v);
+  return answer;
+}
+console.log(solution(1));
+ ```
+ 
+
+<br>
+
+ <pre>
+ 💬  깊이우선탐색을 그림이나 순서대로 순서를 적어서 다시 풀자니 너무 말이 길어질거같아서 내가 알아들은 것을 요약해서 적도록 하겠습니다.
+
+solution 함수에서 DFS(v)가 실행되며 내장함수인 DFS를 호출하고, 그 안에서 조건문을 통해 v값으로 분별하면서 
+출력 및 재귀함수가 성립이 되는데, 일단 제일 중요한건 함수가 실행되고 다시 재귀하게되면 StackFrame 이라는 곳에 
+해당 함수의 정보가 담기게되는데, 거기서 복귀주소가 담겨있습니다. 그래서 재귀가 되고, <mark>if문 조건에 참이되면 return;을 
+하게 되는데 여기서는 함수의 종료를 의미하고 StackFrame에 함수가 쌓이자마자 pop()이 되어 아무것도 실행안되고 StackFrame 
+바로 아래 쌓여있던 함수를 다시 꺼내어 복귀주소로  돌아가서 다음라인의 코드를 실행합니다.</mark> 이거를 그래서 console.log()위치만으로도
+전위,중위,후위가 결정이 나는데, 왜냐하면 StackFrame 쌓이기 전, StackFrame 쌓이고 다시 꺼내어서 복귀주소로 돌아와서 출력 
+이걸로 제어를 했기 때문입니다. 일단 익숙해지기 위해 여러다른 문제를 봐야겠네요.
+  </pre>
+
+</div>
+</details>
+
 
 
 
