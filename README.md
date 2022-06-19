@@ -4440,6 +4440,98 @@ solution 함수에서 DFS(v)가 실행되며 내장함수인 DFS를 호출하고
 </div>
 </details>
 
+<details>
+	
+<summary>8_4 부분집합 구하기(DFS)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre> 
+  자연수 N이 주어지면 1부터 N까지의 원소를 갖는 집합의 부분집합을 모두 출력하는 프로그램을 작성하세요
+ </pre>
+
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 자연수 N(1<=N<=10)이 주어집니다.
+<hr/>
+첫 번째 줄부터 각 줄에 하나씩 부분집합을 아래와 출력예제와 같은 순서로 출력한다.
+단 공집합은 출력하지 않습니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+3
+<hr/>
+1 2 3
+1 2
+1 3
+1
+2 3
+2
+3
+</pre>
+
+
+
+ <br> 
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n){
+  let answer = [];
+  let ch = Array.from({length:n+1}, ()=>0)  
+  function DFS(v){
+    if(v === n+1){
+      let tmp = "";
+      for(let i =1; i <= n; i++){
+        if(ch[i]===1) tmp+= i+" ";
+      }
+      if(tmp.length>0)answer.push(tmp.trim());
+    } 
+    else {
+      ch[v]=1;
+      DFS(v+1);
+      ch[v]=0;
+      DFS(v+1);
+    }
+  }
+  DFS(1);
+  return answer;
+}
+console.log(solution(3));
+ ```
+
+
+<br>
+
+ <pre>
+ 💬  일단 이진트리를 진행하는데 요소 하나씩 집합에 참여하고 안하고 여부를 경우의 수로 잡아서 구현을 해야하는데, 
+ ch라는 배열로 1,0 으로 참여 여부를 확인해서 출력을 해주는데 처음 입력받는 n+1 된 값이랑 같아지면 탐색을 끝낸거니까,
+ answer에 push를 해주게되고, 안넘으면 else 배열타고 기존처럼 재귀하여 탐색에 나선다. 
+
+ % Array.from({length:n}, ()=>0)
+    - length가 n인 배열을 만들고, 요소 0으로 초기화
+ % (tmp.length>0) answer.push(tmp.trim())
+    - 공집합을 .trim(), if문으로 잡음 
+  </pre>
+
+
+	
+</div>
+</details>
+
 
 
 
