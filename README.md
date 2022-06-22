@@ -4532,6 +4532,139 @@ console.log(solution(3));
 </div>
 </details>
 
+<details>
+<summary>8_5 합이 같은 부분집합(DFS : 아마존 인터뷰)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre> 
+N개의 원소로 구성된 자연수 집합이 주어지면, 이 집합을 두 개의 부분집합으로 나누었을 때
+두 부분집합의 원소의 합이 서로 같은 경우가 존재하면 “YES"를 출력하고, 
+그렇지 않으면 ”NO"를 출력하는 프로그램을 작성하세요.
+둘로 나뉘는 두 부분집합은 서로소 집합이며, 두 부분집합을 합하면 입력으로 주어진 원래의 집합이 되어 합니다.
+예를 들어 {1, 3, 5, 6, 7, 10}이 입력되면 {1, 3, 5, 7} = {6, 10} 으로 
+두 부분집합의 합이 16으로 같은 경우가 존재하는 것을 알 수 있다.
+ </pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 자연수 N(1<=N<=10)이 주어집니다.
+두 번째 줄에 집합의 원소 N개가 주어진다. 각 원소는 중복되지 않으며, 
+그 크기는 1,000,000 이하입니다.
+<hr/>
+첫 번째 줄에 “YES" 또는 ”NO"를 출력한다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+6
+1 3 5 6 7 10 
+<hr/>
+YES
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(arr){
+  let answer = "NO", flag = 0; 
+  let total = arr.reduce((a,b) => a+b,0);
+  let n = arr.length;
+  function DFS(L,sum){
+    if(flag) return;
+  
+    if(L === n)
+    {
+        if((total - sum)===sum) 
+        {
+          answer = "YES"
+          flag=1;
+        }
+    }
+    else
+    {
+      DFS(L+1, sum+arr[L]);
+      DFS(L+1, sum);
+    }
+  }
+  DFS(0,0)
+  return answer;
+}
+let arr = [1,3,5,6,7,10]
+console.log(solution(arr));
+ ```
+
+<br>
+
+ <pre>
+ 💬  이진트리 이해가 쉽지않땅.. 
+    처음에는 어떡할지 감도 안 잡히다가, 막상 보면 이걸 왜 몰랐지.. 
+    코드 위에 변수선언부터 다시 보자.
+</pre>
+
+```javascript
+      let answer = "NO", flag = 0; 
+      let total = arr.reduce((a,b) => a+b,0);
+      let n = arr.length;
+```
+
+ <pre>
+    일단 answer라는 변수를 "NO"로 선언해준다. 그리고 flag라는 변수도 선언
+    했는데, 이건 정답이 이미 나왔을 경우 쓸데없이 탐색하지 말고 빠르게 종료할
+    수 있게 하기위해 선언해주는게 좋다고 합니다. 파이썬이나 C++같은 언어에는
+    exit이라는 함수같은걸로 탈출한다고 하지만 JS는 없는거 같아요. 
+    그리고 이 문제는 배열안에서 두개의 부분집합을 만들어 두 값이 같게 만드는
+    것이기때문에 일단 안에 숫자들은 다 누적합을 해주고 한 부분집합을 뺀 값이 
+    그 부분집합이랑 같이 똑같게 나오면 되기때문에, reduce로 total값을 
+    뽑아줍니다. 그리고 L값이 끝까지 도달했는지 확인하기 위한 n 변수 선언.
+</pre>
+
+```javascript
+    function DFS(L,sum){
+    if(flag) return;
+  
+    if(L === n)
+    {
+        if((total - sum)===sum) 
+        {
+          answer = "YES"
+          flag=1;
+        }
+    }
+    else
+    {
+      DFS(L+1, sum+arr[L]);
+      DFS(L+1, sum);
+    }
+  }
+```
+
+<pre>
+
+  재귀함수가 시작되면 L,sum은 일단 0,0으로 시작하게 됩니다. 그리고 바로 맞닥드리는
+  flag를 체크하는 if문입니다. 만약 정답이 나왔다면 불필요한 재귀를 멈추고 바로 return을 해주며, 함수를 탈출합니다. 그 다음 if문은 L값이 이진트리 마지막
+  자식노드까지 도달했는데 확인을 하며, 조건식은 (total-sum)===sum으로 이며,
+  이게 정답에 해당된다면, answer에 "YES"를 넣고, flag를 toggle해주며 끝이나고
+  이렇게 정답이 나올때까지는 else에서 재귀를 반복해줍니다.    
+</pre>
+
+</div>
+</details>
+
 
 
 
