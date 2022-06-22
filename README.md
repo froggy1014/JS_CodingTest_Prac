@@ -4656,10 +4656,10 @@ console.log(solution(arr));
 <pre>
 
   재귀함수가 시작되면 L,sum은 일단 0,0으로 시작하게 됩니다. 그리고 바로 맞닥드리는
-  flag를 체크하는 if문입니다. 만약 정답이 나왔다면 불필요한 재귀를 멈추고 바로 return을 해주며, 함수를 탈출합니다. 그 다음 if문은 L값이 이진트리 마지막
-  자식노드까지 도달했는데 확인을 하며, 조건식은 (total-sum)===sum으로 이며,
-  이게 정답에 해당된다면, answer에 "YES"를 넣고, flag를 toggle해주며 끝이나고
-  이렇게 정답이 나올때까지는 else에서 재귀를 반복해줍니다.    
+  flag를 체크하는 if문입니다. 만약 정답이 나왔다면 불필요한 재귀를 멈추고 바로 return을 해주며, 
+  함수를 탈출합니다. 그 다음 if문은 L값이 이진트리 마지막 자식노드까지 도달했는데 확인을 하며,
+  조건식은 (total-sum)===sum으로 이며, 이게 정답에 해당된다면, answer에 "YES"를 넣고, 
+  flag를 toggle해주며 끝이나고 이렇게 정답이 나올때까지는 else에서 재귀를 반복해줍니다.    
 </pre>
 
 </div>
@@ -4747,7 +4747,97 @@ console.log(solution(capa,arr));
    제일 큰 값일테니 구현이 이렇게 되었다고 한다.
 </pre>
 
+</div>
+</details>
+	
+	
+<details>
+<summary>8_7 최대점수 구하기(DFS)</summary>
+<div markdown="1">       
+<br>
 
+
+ ### ❓ Question
+
+ <pre> 
+이번 정보올림피아드대회에서 좋은 성적을 내기 위하여 현수는 선생님이 주신 N개의 문제를
+풀려고 합니다. 각 문제는 그것을 풀었을 때 얻는 점수와 푸는데 걸리는 시간이 주어지게 됩
+니다. 제한시간 M안에 N개의 문제 중 최대점수를 얻을 수 있도록 해야 합니다. (해당문제는
+해당시간이 걸리면 푸는 걸로 간주한다, 한 유형당 한개만 풀 수 있습니다.
+ </pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 문제의 개수N(1<=N<=20)과 제한 시간 M(10<=M<=300)이 주어집니다.
+두 번째 줄부터 N줄에 걸쳐 문제를 풀었을 때의 점수와 푸는데 걸리는 시간이 주어집니다.
+<hr/>
+첫 번째 줄에 제한 시간안에 얻을 수 있는 최대 점수를 출력합니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+5 20
+10 5
+25 12
+15 8
+6 3
+7 4
+<hr/>
+41
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(limit, arr)
+{
+  let answer = Number.MIN_SAFE_INTEGER;
+  let n = arr.length;
+  function DFS(L,score,time)
+  {
+    if ( time > limit) return; 
+    if( L === n ) answer = Math.max(answer, score);
+    else
+    {
+      DFS(L+1,score+arr[L][0],time+arr[L][1]);
+      DFS(L+1,score,time);
+    }
+  }
+  DFS(0,0,0)
+  return answer;
+}
+let arr = [
+  [10,5],
+  [25,12],
+  [15,8],
+  [6,3],
+  [7,4]
+];
+console.log(solution(20,arr));
+ ```
+
+<br>
+
+ <pre>
+ 💬 이번엔 점수도 점수지만 시간도 누적을 해야해서, 파라미터 하나를 
+ 더 넣음으로써 해결했다. 전 문제랑 많이 비슷해서 쉽게 풀었는데 선생님과
+ 풀이가 비슷해서 감슴이 웅장해졌다.
+</pre>
+
+
+</div>
+</details>
 
  
   
