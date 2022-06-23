@@ -4892,7 +4892,6 @@ function solution(n,m){
   function DFS(L){
     if(L===m){
           answer.push(tmp.slice()); 
-  // .slice() 메소드를 통해 깊은 복사, 얕은 복사를 시행시에 같은 데이터주소를 갖고있어 값이 다 같아진다.
     }
     else{
       for(let i = 1; i <= n; i++)
@@ -4931,4 +4930,75 @@ console.log(solution(3,2))
 	
 </details>
  
-  
+<details>
+
+<summary>8_9 동전교환</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>다음과 같이 여러 단위의 동전들이 주어져 있을때 거스름돈을 가장 적은 수의 동전으로 교환 해주려면 어떻게 주면 되는가? 각 단위의 동전은 무한정 쓸 수 있다.</pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에는 동전의 종류개수 N(1<=N<=12)이 주어진다. 
+두 번째 줄에는 N개의 동전의 종류가 주어지고, 그 다음줄에 거슬러 줄 금액 M(1<=M<=500)이 주어진다.
+각 동전의 종류는 100원을 넘지 않는다.
+<hr/>첫 번째 줄에 거슬러 줄 동전의 최소개수를 출력한다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+3
+1 2 5
+15
+<hr/>3
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(m,arr){
+  let answer = Number.MAX_SAFE_INTEGER;
+  let n = arr.length;
+  function DFS(L, sum){
+    if ( sum > m ) return;
+    if(L >= answer) return;
+    if ( sum === m ) answer = Math.min(answer, L);
+    else{
+      for(let i = 0; i < n; i++){
+        DFS(L+1,sum+arr[i]);
+      }
+    }
+  }
+  DFS(0,0);
+ return answer;
+}
+let arr = [1,2,5];
+console.log(solution(15,arr));
+ ```
+
+<br>
+
+ <pre>
+ 💬 뒷문제였던 중복순열처럼 갯수에 대한 제한이 없기때문에 if문 걸리는 조건은
+   누적합이 목표 가격이랑 같게되면 도달한 Level값이 동전의 개수인데, 
+   Math.min을 이용해서 최소개수를 계속 따져서 answer에 집어넣는것이다. 근데
+   이렇게 Level에 제한이 없을때는, edge cutting을 해서 불필요한 반복이 없을 수 
+   있도록 위에 보면 합이 목표 값보다 높거나, 이미 나온 최소개수보다 많으면 그냥 return을 반환해준다. 
+</pre>
+</div>	
+</details>
