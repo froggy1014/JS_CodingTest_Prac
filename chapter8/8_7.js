@@ -4,9 +4,8 @@ function solution(limit, arr)
   let n = arr.length;
   function DFS(L,score,time)
   {
-    if( L === n ){
-      if ( time <= 20) answer = Math.max(answer, score);
-    }
+    if ( time > limit) return; 
+    if( L === n ) answer = Math.max(answer, score);
     else
     {
       DFS(L+1,score+arr[L][0],time+arr[L][1]);
