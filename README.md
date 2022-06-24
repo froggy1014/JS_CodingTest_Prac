@@ -5151,3 +5151,90 @@ console.log(solution(5))
 </pre>
 </div>
 </details>
+
+<details>
+
+<summary>8_12 조합의 경우수(메모이제이션)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+<sub>n</sub>C<sub>r</sub> = $\frac{n!}{(n-r)!r!} $ 로 계산합니다.<br>
+하지만 여러분은 이 공식을 쓰지않고 다음 공식을 사용하여 재귀를 이용해 조합수를 구해주는 프로그램을 작성하세요.<br>
+<sub>n</sub>C<sub>r</sub> = <sub>n-1</sub>C<sub>r-1</sub> + <sub>n-1</sub>C<sub>r</sub>
+
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫째 줄에 자연수 n(3<=n<=33)과 r(0<=r<=n)이 입력됩니다.
+<hr/>첫째 줄에 조합수를 출력합니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+5 3
+<hr/>10
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n, r){
+let answer;
+let dy = Array.from(Array(35), () => Array(35).fill(0))
+function DFS(n,r){
+  if(dy[n][r] > 0) return dy[n][r];
+  if(n === r || r === 0) return 1;
+  else return dy[n][r] = DFS(n-1, r-1)+DFS(n-1,r);
+}
+answer = DFS(n,r);
+return answer;
+}
+console.log(solution(33,19));
+ ```
+
+<br>
+
+  ```mermaid
+  stateDiagram-v2
+    5<sup>C</sup>3 --> 4<sup>C</sup>2  
+    5<sup>C</sup>3 --> 4<sup>C</sup>3
+    4<sup>C</sup>2 --> 3<sup>C</sup>1
+    4<sup>C</sup>2 --> 3<sup>C</sup>2
+    3<sup>C</sup>1 --> 2<sup>C</sup>0
+    3<sup>C</sup>2 --> 2<sup>C</sup>1'
+    3<sup>C</sup>2 --> 2<sup>C</sup>2'
+    2<sup>C</sup>1' --> 1<sup>C</sup>0'
+    2<sup>C</sup>1' --> 1<sup>C</sup>1'
+    2<sup>C</sup>2' --> 1<sup>C</sup>1''
+    2<sup>C</sup>2' --> 1<sup>C</sup>2'
+    3<sup>C</sup>1 --> 2<sup>C</sup>1
+    2<sup>C</sup>1 --> 1<sup>C</sup>0
+    2<sup>C</sup>1 --> 1<sup>C</sup>1
+    4<sup>C</sup>3 --> 3<sup>C</sup>2'
+    4<sup>C</sup>3 --> 3<sup>C</sup>3
+  ```
+ <pre>
+ 💬 약간 이런식으로 DFS로 내려타고 가서 경우의 수를 구하는데, 맨 하단 노드는 어차피 1이 나오니까 1로 반환해주고, 
+ 나머지들은 DFS(n-1, r-1)+DFS(n-1,r) 로 진행하면 값이 나오지만 지금 예제처럼 5, 3을 넣으면 10가지 밖에 없으니 
+ 굉장히 빨리 결과가 처리되지만, 좀 더 큰 숫자가 나오면, 연산이 오래걸리게 된다. 
+ 그래서 선생님은 '메모이제이션' 이라는 개념을 사용하시는데, 위에서 봤듯이 왼쪽에서 이미 진행한 노드를 
+ 똑같이 오른쪽에서 타고내려가다보니 연산이 오래걸리는데, 그 왼쪽 노드에서 같은 노드 결과값을 2차원 배열에 저장을 해서 
+ 검사를 한다음 반환을 해주면 시간 복잡도를 엄청나게 줄여주게 된다. 
+</pre>
+
+</div>
+</details>
