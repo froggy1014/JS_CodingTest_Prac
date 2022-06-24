@@ -5090,3 +5090,64 @@ console.log(solution(2,arr))
 	
 	
 </details>
+	
+<details>
+
+<summary>8_11 팩토리얼</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>자연수 N을 입력하면 N!값을 구하세요.
+N! = n*(n-1)*(n-2)*.....*2*1입니다.
+만약 N=5라면 5!=5*4*3*2*1=120입니다.</pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫째 줄에 자연수 N(3<=n<=10)이 입력됩니다.
+<hr/>첫째 줄에 N팩토리얼 값을 출력합니다
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+5
+<hr/>120
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n){
+  let answer = 0;
+  function DFS(n){
+    if(n===1) return 1;
+    else return n*DFS(n-1)
+  }
+  answer = DFS(n);
+  return answer;
+}
+console.log(solution(5))
+ ```
+
+<br>
+
+ <pre>
+ 💬 팩토리얼이다. 간단한 코드당..  다음에 수열관련 및 다른 알고리즘때 참조하기 위해... 근데 이게 위에 쓰인것처럼 
+ n*(n-1) .....2*1 이렇게 가는게 팩토리얼인데. DFS니까 DFS(5)부터 시작해서 DFS(1)에서 끝나서 
+ 스택프레임에 쌓인게 하나씩돌아가기때문에 계산하면 1*2....(n-1)*n 이렇게 계산이 된다고 보면된다. (중요한가?)
+</pre>
+</div>
+</details>
