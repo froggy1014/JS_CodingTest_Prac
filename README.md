@@ -5002,3 +5002,91 @@ console.log(solution(15,arr));
 </pre>
 </div>	
 </details>
+
+<details>
+
+<summary>8_10 순열 구하기</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>10이하의 N개의 자연수가 주어지면 이 중 M개를 뽑아 일렬로 나열하는 방법을 모두 출력합니다.</pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 자연수 N(3<=N<=10)과 M(2<=M<=N) 이 주어집니다.
+두 번째 줄에 N개의 자연수가 오름차순으로 주어집니다.
+<hr/>첫 번째 줄에 결과를 출력합니다. 맨 마지막 총 경우의 수를 출력합니다.
+출력순서는 사전순으로 오름차순으로 출력합니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+3 2
+3 6 9
+<hr/>3 6
+3 9
+6 3
+6 9
+9 3
+9 6
+6
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(m,arr){
+  let answer = [];
+  let n = arr.length;
+  let ch = Array.from({length:n}, () => 0);
+  let tmp = Array.from({length:m}, () => 0);
+  function DFS(L){
+    if(L===m){
+      answer.push(tmp.slice());
+    }
+    else{
+      for(let i = 0 ; i < n ; i++){
+          if(ch[i] === 0){
+            ch[i] = 1;
+            tmp[L]=arr[i];
+            DFS(L+1);
+            ch[i] = 0;
+          }}
+    }
+  }
+  DFS(0)
+  return answer;
+}
+let arr = [3,6,9];
+console.log(solution(2,arr))
+ ```
+
+<br>
+
+ <pre>
+ 💬 중복 순열이 아니고 그냥 순열이기때문에 M개 만큼뽑는데 일단 코드를 보면 
+ 순열로 뽑은 값을 임시로 넣어두기 위해 tmp라는 length가 M개인 배열을 만들어주고 
+ 중복을 방지하기 위해 ch라는 length N개인 배열을 만들어준다.
+ L값이 m에 도달하면, tmp에 쌓인 값을 answer 에 push해주고 
+ 그 외는 for 문으로 n 전까지 돌면서, 중복검사를 해준 다음 
+ tmp[L]에 arr[i]값을 넣어주고 사용한 i값을 ch에 1로 해주고, 
+ DFS(L+1)로 증감해주고, 다 끝나서 돌아오면 ch[i]에서 체크했던걸 풀어준다.
+</pre>
+</div>
+	
+	
+</details>
