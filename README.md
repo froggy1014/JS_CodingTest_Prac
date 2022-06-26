@@ -5352,3 +5352,78 @@ function solution(n, f){
 </div>
 	
 </details>
+<details>
+
+<summary>8_14 조합 구하기</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>1부터 N까지 번호가 적힌 구슬이 있습니다. 이 중 M개를 뽑는 방법의 수를 출력하는 프로그램을 작성하세요.
+</pre>
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 자연수 N(3<=N<=10)과 M(2<=M<=N) 이 주어집니다.
+<hr/>첫 번째 줄에 결과를 출력합니다. 맨 마지막 총 경우의 수를 출력합니다. 출력순서는 사전순으로 오름차순으로 출력합니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+4 2
+<hr/>1 2
+1 3
+1 4
+2 3
+2 4
+3 4
+6
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n,m){
+  let answer = [];
+  let tmp = Array.from({length:m}, () => 0);
+  function DFS(L,s){
+    if(L === m){
+      answer.push(tmp.slice());
+    }
+    else {
+      for ( let i = s ; i <= n; i++){
+        tmp[L]= i;
+        DFS(L+1, i+1);
+      }
+    }
+  }
+  DFS(0,1)
+  return answer;
+}
+console.log(solution(4, 2));
+ ```
+
+<br>
+
+
+
+ <pre>
+ 💬  조합에서는 2, 1 이랑 1,2 가 똑같다고 보기에 중복을 없애줘야한다. 
+ 그래서 애초에 재귀를 시작할때 0, 1을 넣어주고, 재귀찍힐때마다 L번 인덱스에 
+ for문을 통한 i 를 넣어줌으로써 오름차순대로 출력되는데, 완전 복사를 위해서 Push해줄때 slice()를 이용한다. 
+</pre>
+</div>
+</details>
