@@ -5784,3 +5784,124 @@ console.log(solution(5,arr))
 
 </div>
 </details>
+<details>
+<summary>9_3 경로 탐색(인접리스트)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>방향그래프가 주어지면 1번 정점에서 N번 정점으로 가는 모든 경로의 가지 수를 출력하는 프로그램을 작성하세요. 
+ 아래 그래프에서 1번 정점에서 5번 정점으로 가는 가지 수는 총 6 가지입니다. 
+ 1 2 3 4 5
+1 2 5
+1 3 4 2 5
+1 3 4 5
+1 4 2 5
+1 4 5
+
+</pre> 
+```mermaid
+flowchart LR
+    1-->2
+    1-->3
+    1-->4
+    2-->1
+    2-->3
+    2-->5
+    3-->4
+    4-->2
+    4-->5
+```
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫째 줄에는 정점의 수 N(1<=N<=20)와 간선의 수 M가 주어진다. 그 다음부터 M줄에 걸쳐 연결정보가 주어진다.
+<hr/>총 가지수를 출력한다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+5 9
+1 2
+1 3
+1 4
+2 1
+2 3
+2 5
+3 4
+4 2
+4 5  
+<hr/>6
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(n,arr){
+  let answer = 0;
+  let graph=Array.from(Array(n+1), ()=>Array());
+  let ch = Array.from({length:n+1} , () => 0);
+  let path = [];
+  for(let[a,b] of arr)
+  {
+    graph[a].push(b)
+  }
+  function DFS(v){
+    if(v===n){
+      answer++;
+      console.log(path);
+    }
+    else{
+      for(let i = 0 ; i < graph[v].length; i++){
+        if(ch[graph[v][i]] === 0){
+          ch[graph[v][i]] = 1;
+          path.push(graph[v][i]);
+          DFS(graph[v][i]);
+          ch[graph[v][i]] = 0;
+          path.pop();
+        }
+      }
+    }
+  }
+  path.push(1);
+  ch[1] = 1;
+  DFS(1);
+  return answer;
+}
+let arr = [
+  [1,2],
+  [1,3],
+  [1,4],
+  [2,1],
+  [2,3],
+  [2,5],
+  [3,4],
+  [4,2],
+  [4,5]
+]
+console.log(solution(5,arr))
+ ```
+
+<br>
+
+
+
+ <pre>
+ 💬  9_2 문제랑 같은 질문이지만 앞서서 푼 것은 인접 행렬이고 이번에는 인접리스트로 풀라는 지시를 내리셨다.
+ 경우의 수가 없을때는 인접 행렬로 풀 수 있지만 좀 많아지면 인접리스트로 풀어야 훨씬 낫다고 하셨다.<br>일단 2차 배열 변수 graph를 하나 만들어 요소는 비워 놓는다. <br>그리고 들렸던 정점을 체크해주기위해 ch 배열을 하나 만들어 준다<br>그리고 for of문을 사용해, arr의 요소 값들을 이용해서 값을 넣어준다.<br> 출발정점 무조건 1이므로 ch[1] = 1을 제일 먼저 넣어주고, 재귀함수를 실행한다.<br>마지막 정점에 v값이 도착하면 answer++를 해주고<br>그외에는 for문을 graph 행 인덱스의 length 만큼 돌려서 해당 정점이 ch가 1인지 확인한다<br>없다면 해당 ch 인덱스에 1을 체크해주고, 다시 재귀를 돌린다.<br>그리고 재귀가 끝나면 ch를 풀어줘서 다음 경우의 수를 가게끔한다.
+</pre>
+</div>
+</details>
