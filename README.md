@@ -6015,3 +6015,161 @@ console.log(solution(arr));
 
 </div>
 </details>
+
+<details>
+<summary>9_5 이진트리 넓이우선탐색(BFS)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>아래 그림과 같은 이진트리를 넓이우선탐색해 보세요. </pre> 
+
+```mermaid
+stateDiagram-v2
+    1-->2
+    1-->3
+    2-->4
+    2-->5
+    3-->6
+    3-->7
+  ``` 
+
+ 
+<br>
+
+### 📚  출력
+
+<br>
+
+<pre>넓이 우선 탐색 : 1 2 3 4 5 6 7</pre>
+
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+// 최단거리 구할때 BFS를 많이 씀 
+
+function solution(){
+  let answer = "";
+  let queue = [];
+  queue.push(1);
+  while(queue.length){
+    let v = queue.shift()
+    answer+=  v+" ";
+    for(let nv of [v*2, v*2+1]){
+      if(nv>7) continue;
+      queue.push(nv);
+    }
+  }
+  return answer;
+}
+console.log(solution())
+ ```
+<br>
+
+
+
+ <pre>
+ 💬  넓이 우선 탐색 (BFS)은 queue를 사용한다. queue에 시작 노드인 1을 push하고 
+
+    1. while문이 시작되는데, queue.length가 0이되면 멈추는 조건에 시작된다. 
+    2. 변수 v에 queue.shift()로 queue 맨앞 배열을 v에 넣어준다. 
+    3. answer에 v+" "; 로 숫자와 스페이스를 넣어주고 더해준다. 
+    4. 위에 다이그램을 보면 규칙이 보일 것이다. 노드의 *2, *2+1 인데.
+    5. for( 변수 nv에 아까 넣었던 변수에 (v*2),(v*2+1) 을 넣어준다.)
+    6. nv가 7초과 되면 다음 코드를 넘어간다. ( 최댓값이 7 이니까 )
+    7. 이하는 queue에 nv를 push 한다. 
+    8. return answer; 
+</pre>
+
+</div>
+
+
+
+
+</details>
+
+
+<details>
+<summary>9_6 송아지 찾기(BFS : 상태트리탐색)</summary>
+<div markdown="1">       
+<br>
+
+
+ ### ❓ Question
+
+ <pre>현수는 송아지를 잃어버렸다. 다행히 송아지에는 위치추적기가 달려 있다. 
+ 현수의 위치와 송아지의 위치가 수직선상의 좌표 점으로 주어지면 현수는 현재 위치에서 송아지의 위치까지 다음과 같은 방법으로 이동한다. 
+ 송아지는 움직이지 않고 제자리에 있다.현수는 스카이 콩콩을 타고 가는데 한 번의 점프로 앞으로 1, 뒤로 1, 앞으로 5를 이동할 수있다. 
+ 최소 몇 번의 점프로 현수가 송아지의 위치까지 갈 수 있는지 구하는 프로그램을 작성하세요.</pre> 
+
+<br>
+
+### 📚 입력설명 및 출력설명
+
+<pre>
+첫 번째 줄에 현수의 위치 S와 송아지의 위치 E가 주어진다. 직선의 좌표 점은 1부터 10,000까지이다.
+<hr/>점프의 최소횟수를 구한다. 답은 1이상입니다.
+</pre>
+
+
+<br>
+
+### 🗣 입력예제 & 출력예제
+
+<pre>
+5 14,  8 3
+<hr/>3,      5
+</pre>
+
+
+
+ <br>
+
+ ### ‼️ Solution
+
+ ```javascript
+function solution(s,e){
+  let answer = 0;
+  let ch=Array.from({length:10001}, ()=>0);
+  let dis=Array.from({length:10001}, ()=>0);
+  let queue = [];
+  ch[s]= 1;
+  queue.push(s);
+  dis[s]= 0;
+  while(queue.length){
+    let x = queue.shift();
+    for(let nx of [x-1, x+1, x+5]){
+      if(nx === e) return dis[x]+1;
+      if(nx > 0 && nx <= 10000 && ch[nx] === 0 ){
+        ch[nx] = 1;
+        queue.push(nx);
+        dis[nx] = dis[x]+1;
+      }
+    }
+  }
+  return answer;
+}
+console.log(solution(8,3))
+ ```
+<br>
+
+
+
+ <pre>
+ 💬  일단 현수의 위치에서 송아지의 위치를 넓이 우선 탐색으로 찾는건데 Level값이 즉 현수와 송아지 간의 거리다.
+    일단 탐색에서 갔던 노드로 또가는 것을 막기위해 ch 배열을 만들어주고, 한번 레벨이 내려갈때마다, 
+    레벨이 내려가면서 만난 노드중에 송아지 위치가 있다면 dis[x]+1 를 반납하고, 아니면 레벨이 00보다 높고, 
+    10000이하이며, ch로 거쳐간적이 없는지 확인한다면, ch[nx]에 1을 넣어 체크해주고, queue에 해당
+    레벨을 넣어준다음에, dis[nx]에 방금 전 레벨에 +1 해서 넣어주면서 거리를 구한는 것이다.
+</pre>
+
+</div>
+
+</details>
