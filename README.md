@@ -8,7 +8,9 @@
 
 <br>
 
-## 챕터1 - 기본풀이 문제. 
+<details> 
+<summary>챕터1 - 기본풀이 문제</summary>
+
 
 <br>
 
@@ -836,9 +838,12 @@ console.log(solution(str));
 </div>
 </details>
 
+</details>
+
 <br>
 
-## 챕터2 - 2차원 배열 탐색
+<details>
+<summary>챕터2 - 2차원 배열 탐색</summary>
  
 <br> 
  
@@ -1256,11 +1261,12 @@ console.log(solution(arr));
 
 </div>
 </details>
+</details>
 
 <br>
 
-
- ## 챕터3 - 문자열 탐색
+ <details>
+ <summary>챕터3 - 문자열 탐색</summary>
  
   <br>
  
@@ -1610,10 +1616,12 @@ console.log(solution(str))
 
 </div>
 </details>
+</details>
 
    <br>
  
- ## 챕터4 - 완전탐색(블루투포스)
+ <details>
+ <summary>챕터4 - 완전탐색(블루투포스)</summary>
  
   <br>
  
@@ -2003,11 +2011,12 @@ console.log(solution(10,3,arr));
 
 </div>
 </details>
+</details>
 
 
   <br>
- 
- ## 챕터5 - 효율성(투포인터 알고리즘, 슬라이딩윈도우, 해쉬)
+ <details>
+ <summary>챕터5 - 효율성(투포인터 알고리즘, 슬라이딩윈도우, 해쉬)</summary>
  
   <br>
  
@@ -2598,10 +2607,12 @@ console.log(solution(arr1,arr2));
 
 </div>
 </details>
+</details>
 
   <br>
  
- ## 챕터6 - 자료구조(스택, 큐)
+ <details>
+ <summary>챕터6 - 자료구조(스택, 큐)</summary>
  
   <br>
 
@@ -3151,11 +3162,12 @@ console.log(solution(a,b));
 
 </div>
 </details>
-
+</details>
  
    <br>
  
- ## 챕터7 - 정렬과 그리디, 결정알고리즘
+ <details>
+ <summary>챕터7 - 정렬과 그리디, 결정알고리즘</summary>
  
   <br>
  
@@ -4087,10 +4099,12 @@ console.log(solution(3, arr))
 
 </div>
 </details>
+</details>
  
  <br>
  
- ### 챕터 8 - 재귀함수와 완전탐색(깊이우선탐색, DFS)
+ <details>
+ <summary>챕터 8 - 재귀함수와 완전탐색(깊이우선탐색, DFS)</summary>
  
  <br>
  
@@ -5505,10 +5519,12 @@ console.log(solution(5,3,arr,6))
 
 </div>	
 </details>
+</details>
 
 <br> 
 
-## 챕터9 - 그래프와 탐색(DFS, BFS(넓이우선))
+<details>
+<summary>챕터9 - 그래프와 탐색(DFS, BFS(넓이우선))</summary>
 
 <details>
 
@@ -6398,3 +6414,5 @@ while문이 8면이 다 0이 나올때까지 돌게합니다. 즉 섬의 영역�
 
 </div>
 </details>
+</details>
+
