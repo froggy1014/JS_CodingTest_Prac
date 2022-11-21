@@ -1,42 +1,43 @@
 let input = require('fs').readFileSync('./input.txt').toString().trim().split('\n');
 
-input.shift();
+// input.shift();
 
-let answer = input.sort((a,b) => a - b);
+// let answer = input.sort((a,b) => a - b);
 
-console.log(answer.join('\n'));
+// console.log(answer.join('\n'));
+
+const max = input.shift();
+
 
 // 선택정렬 
 // for( let i = 0; i < max-1; i++) {
 //   let idx = i;
 //   for( let j = i+1; j < max; j++){
-//     if(numArray[idx] > numArray[j]) idx=j;
+//     if(input[idx] > input[j]) idx=j;
 //   }
-//   [numArray[i],numArray[idx]]=[numArray[idx],numArray[i]];
-//   console.log(numArray[i]);
+//   [input[i],input[idx]]=[input[idx],input[i]];
+//   console.log(input[i]);
 // }
-// console.log(numArray[max-1]);
+// console.log(input[max-1]);
 
 // 버블정렬
-// for( let i = 0 ; i < max - 1; i++){
-//   for(let j = 0; j < max - i - 1; j++){
-//     if( numArray[j] > numArray[j+1] ) 
-//       [numArray[j],numArray[j+1]] = [numArray[j+1],numArray[j]] 
+// for( let i = 0 ; i < max; i++){
+//   for(let j = 0; j < max - i; j++){
+//     if( input[j] > input[j+1] ) 
+//       [input[j],input[j+1]] = [input[j+1],input[j]] 
 //   }
 // }
-// console.log(numArray);
+// console.log(input.join('\n')); 
 
-
-// 선택정렬
+// 삽입정렬
 // for ( let i = 0 ; i < max ; i++) {
-//   let temp = numArray[i];
+//   let temp = input[i];
 //   let j;
 //   for (j = i-1; j >= 0; j--) {
-//     if(numArray[j] > temp) numArray[j+1] = numArray[j];
+//     if(input[j] > temp) input[j+1] = input[j];
 //     else break;
 //   }
-//   numArray[j+1] = temp;
+//   input[j+1] = temp;
 // }
-// numArray.map(( v ) => console.log(v));
+// console.log(input.join('\n'));
 
-// numArray.sort().map((v) => console.log(v));
