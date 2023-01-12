@@ -43,5 +43,12 @@
 ### - [캐시](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%EC%BA%90%EC%8B%9C/exp.md)
 ### - [튜플](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%ED%8A%9C%ED%94%8C/exp.md)
 ### - [행렬의 곱셈](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%ED%96%89%EB%A0%AC%EC%9D%98%20%EA%B3%B1%EC%85%88/exp.md)
+### - [k진수에서 소수 개수 구하기](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C%20%EC%86%8C%EC%88%98%20%EA%B0%9C%EC%88%98%20%EA%B5%AC%ED%95%98%EA%B8%B0/exp.md)
+### - [n^2배열자르기](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/n%5E2%EB%B0%B0%EC%97%B4%EC%9E%90%EB%A5%B4%EA%B8%B0/exp.md)
+### - [뉴스 클리스터링](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%EB%89%B4%EC%8A%A4%20%ED%81%B4%EB%A6%AC%EC%8A%A4%ED%84%B0%EB%A7%81/exp.md)
+### - [위장](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%EC%9C%84%EC%9E%A5/exp.md)
+### - [프린터](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%ED%94%84%EB%A6%B0%ED%84%B0/exp.md)
+### - [피로도](https://github.com/froggy1014/JS_CodingTest_Prac/blob/main/Programmers/Lv2/%ED%94%BC%EB%A1%9C%EB%8F%84/exp.md)
+
 
 <br>
